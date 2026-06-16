@@ -104,6 +104,23 @@
             display: flex;
         }
     </style>
+
+<style id="mobile-three-page-patch">
+@media (max-width: 768px){
+.mobile-page{display:none;}
+.mobile-page.active{display:block;}
+.mobile-nav{
+position:sticky;bottom:0;z-index:9999;
+display:flex;gap:8px;padding:10px;
+background:rgba(15,23,42,.95);backdrop-filter:blur(8px);
+}
+.mobile-nav button{
+flex:1;padding:12px;border-radius:12px;
+background:#f59e0b;color:#111;font-weight:bold;border:none;
+}
+}
+</style>
+
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between weather-bg" id="appBody">
 
@@ -1717,5 +1734,56 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
+
+<script id="mobile-three-page-patch-js">
+document.addEventListener('DOMContentLoaded',()=>{
+ if(window.innerWidth>768) return;
+
+ const prep=document.getElementById('preparationCard');
+ const altar=document.getElementById('altarCard');
+ const history=document.getElementById('wishHistoryContainer')?.closest('.bg-slate-900\/80') || document.querySelectorAll('.bg-slate-900\/80')[2];
+
+ if(!prep || !altar) return;
+
+ const p1=document.createElement('div');
+ const p2=document.createElement('div');
+ const p3=document.createElement('div');
+
+ p1.className='mobile-page active';
+ p2.className='mobile-page';
+ p3.className='mobile-page';
+
+ prep.parentNode.insertBefore(p1, prep);
+ p1.appendChild(prep);
+
+ const paper=prep.querySelector('.relative.bg-\[\#ebebeb\]');
+ if(paper){
+   p2.appendChild(paper);
+   prep.appendChild(document.createElement('div'));
+ }
+
+ prep.parentNode.insertBefore(p2, p1.nextSibling);
+ prep.parentNode.insertBefore(p3, p2.nextSibling);
+
+ p3.appendChild(altar);
+ if(history) p3.appendChild(history);
+
+ const nav=document.createElement('div');
+ nav.className='mobile-nav';
+ nav.innerHTML=`
+ <button onclick="showMobilePage(0)">1️⃣ 填資料</button>
+ <button onclick="showMobilePage(1)">2️⃣ 金紙</button>
+ <button onclick="showMobilePage(2)">3️⃣ 金爐</button>`;
+ document.body.appendChild(nav);
+
+ window.showMobilePage=function(i){
+   document.querySelectorAll('.mobile-page').forEach((p,idx)=>{
+      p.classList.toggle('active',idx===i);
+   });
+   window.scrollTo({top:0});
+ }
+});
+</script>
+
 </body>
 </html>
