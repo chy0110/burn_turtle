@@ -104,23 +104,6 @@
             display: flex;
         }
     </style>
-
-<style id="mobile-three-page-patch">
-@media (max-width: 768px){
-.mobile-page{display:none;}
-.mobile-page.active{display:block;}
-.mobile-nav{
-position:sticky;bottom:0;z-index:9999;
-display:flex;gap:8px;padding:10px;
-background:rgba(15,23,42,.95);backdrop-filter:blur(8px);
-}
-.mobile-nav button{
-flex:1;padding:12px;border-radius:12px;
-background:#f59e0b;color:#111;font-weight:bold;border:none;
-}
-}
-</style>
-
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col justify-between weather-bg" id="appBody">
 
@@ -156,133 +139,162 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
         <div id="rainbow" class="absolute inset-x-0 top-24 h-24 rainbow"></div>
     </div>
 
-    <main class="w-full max-w-7xl mx-auto px-4 py-2 flex-grow flex flex-col lg:flex-row gap-6 items-center lg:items-stretch justify-center z-15 relative">
+    <!-- 三頁式流程主體容器 -->
+    <main class="w-full max-w-7xl mx-auto px-4 py-4 flex-grow flex flex-col justify-center items-center z-15 relative">
         
-        <!-- 左側：祈願設定與畫布 (儀式籌備區) -->
-        <div class="w-full lg:w-3/5 bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden" id="preparationCard">
+        <!-- ==================== 第一頁：祈願資訊頁 ==================== -->
+        <div id="page1" class="w-full max-w-2xl bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 md:p-8 shadow-2xl relative overflow-hidden">
             <!-- 裝飾花紋 -->
             <div class="absolute -top-12 -right-12 w-24 h-24 border border-amber-500/10 rounded-full pointer-events-none"></div>
             
-            <div>
-                <!-- 步驟指示 -->
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                    <h2 class="text-lg font-bold text-amber-200 flex items-center gap-2">
-                        <span class="bg-amber-500/20 text-amber-300 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-mono">1</span>
-                        第一步：繪製太陽、鋪滿朝陽靈龜
-                    </h2>
-                    <span class="text-xs text-amber-500/80 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full">正統 1:1 A4 祈願金紙</span>
+            <!-- 步驟指示 -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                <h2 class="text-xl font-bold text-amber-200 flex items-center gap-2">
+                    <span class="bg-amber-500/20 text-amber-300 w-7 h-7 rounded-full inline-flex items-center justify-center text-base font-mono">1</span>
+                    第一步：填寫祈願時空資訊
+                </h2>
+                <span class="text-xs text-amber-500/80 font-semibold bg-amber-500/10 px-2.5 py-1 rounded-full">正統儀式登陸</span>
+            </div>
+
+            <!-- 填寫心願與時空表單 -->
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">✍️ 祈福信眾大名 (請署名)</label>
+                    <input type="text" id="signerName" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">📅 祈晴具體日期與時間</label>
+                    <input type="text" id="ritualTime" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">📍 祈晴具體地點 (越精確越靈驗)</label>
+                    <input type="text" id="ritualLocation" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">🍀 心願類別</label>
+                    <select id="blessingCategory" onchange="handleFormInput()" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-amber-500 transition-all">
+                        <option value="sunny">☀️ 驅除烏雲 · 晴空萬里</option>
+                        <option value="exam">🎓 金榜題名 · 考試順利</option>
+                        <option value="health">🍀 身體健康 · 出入平安</option>
+                        <option value="wealth">💰 開張大吉 · 財源廣進</option>
+                        <option value="love">💖 桃花朵朵 · 良緣美滿</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 前往第二頁按鈕 -->
+            <div class="mt-8">
+                <button onclick="goToPage2()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold py-4 rounded-2xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base">
+                    <span>下一步：繪製祈願金紙</span>
+                    <span class="text-lg">🎨</span>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- ==================== 第二頁：繪製金紙頁 ==================== -->
+        <div id="page2" class="w-full max-w-3xl bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 shadow-2xl relative overflow-hidden" style="display: none;">
+            <!-- 裝飾花紋 -->
+            <div class="absolute -top-12 -right-12 w-24 h-24 border border-amber-500/10 rounded-full pointer-events-none"></div>
+
+            <!-- 步驟指示 -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+                <h2 class="text-lg font-bold text-amber-200 flex items-center gap-2">
+                    <span class="bg-amber-500/20 text-amber-300 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-mono">2</span>
+                    第二步：繪製太陽、鋪滿朝陽靈龜
+                </h2>
+                <span class="text-xs text-amber-500/80 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full">A4 金紙畫布</span>
+            </div>
+
+            <!-- 畫布與貼紙互動區 -->
+            <div class="relative bg-[#ebebeb] border-2 border-slate-800 rounded-2xl p-4 shadow-inner text-slate-950 flex flex-col items-center">
+                <div class="w-full flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-2">
+                    <span class="text-xs font-bold text-slate-700 tracking-wider flex items-center gap-1">
+                        📜 傳統 A4 金紙 (太陽已自動置中，朝陽靈龜會全自動朝向大太陽爬行)
+                    </span>
                 </div>
 
-                <!-- 填寫心願與時空表單 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">✍️ 祈福信眾大名 (請署名)</label>
-                        <input type="text" id="signerName" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">📅 祈晴具體日期與時間</label>
-                        <input type="text" id="ritualTime" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">📍 祈晴具體地點 (越精確越靈驗)</label>
-                        <input type="text" id="ritualLocation" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">🍀 心願類別 </label>
-                        <select id="blessingCategory" onchange="handleFormInput()" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3 py-1.5 text-sm text-slate-100 focus:outline-none focus:border-amber-500 transition-all">
-                            <option value="sunny">☀️ 驅除烏雲 · 晴空萬里</option>
-                            <option value="exam">🎓 金榜題名 · 考試順利</option>
-                            <option value="health">🍀 身體健康 · 出入平安</option>
-                            <option value="wealth">💰 開張大吉 · 財源廣進</option>
-                            <option value="love">💖 桃花朵朵 · 良緣美滿</option>
-                        </select>
-                    </div>
+                <!-- 貼紙工具快速加入按鈕 -->
+                <div class="w-full flex gap-1.5 flex-wrap mb-2 justify-center bg-slate-200/60 p-1.5 rounded-xl border border-slate-300/80">
+                    <button onclick="addSticker('grid')" class="text-xs bg-slate-800 hover:bg-slate-950 text-white px-2.5 py-1.5 rounded font-bold transition-all shadow-sm flex items-center gap-1">
+                        ➕ 貼紙：傳統網格龜 🐢
+                    </button>
+                    <button onclick="addSticker('simple')" class="text-xs bg-slate-800 hover:bg-slate-950 text-white px-2.5 py-1.5 rounded font-bold transition-all shadow-sm flex items-center gap-1">
+                        ➕ 貼紙：經典微笑龜 🏵️
+                    </button>
                 </div>
 
-                <!-- 畫布與貼紙互動區 -->
-                <div class="relative bg-[#ebebeb] border-2 border-slate-800 rounded-2xl p-4 shadow-inner text-slate-950 flex flex-col items-center">
-                    <div class="w-full flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-2">
-                        <span class="text-xs font-bold text-slate-700 tracking-wider flex items-center gap-1">
-                            📜 傳統 A4 金紙 
-                        </span>
+                <!-- 畫布容器：背景採用傳統金紙竹黃色，並疊加傳統紅印框 -->
+                <div id="paperContainer" class="relative w-full aspect-[4/3] bg-[#fdf6e2] border-2 border-amber-800/20 rounded-lg overflow-hidden shadow-md select-none">
+                    
+                    <!-- 傳統朱砂紅印與吉祥話飾紋 -->
+                    <div class="absolute inset-0 pointer-events-none flex flex-col justify-between p-4 border-2 border-dashed border-red-700/10 rounded-md m-2 z-0">
+                        <div class="flex justify-between text-[11px] text-red-700/30 font-serif font-bold">
+                            <span class="border border-red-700/20 px-1 py-0.5 rounded">急急如律令</span>
+                            <span class="border border-red-700/20 px-1 py-0.5 rounded">晴天普照</span>
+                        </div>
+                        <div class="flex justify-between text-[11px] text-red-700/30 font-serif font-bold">
+                            <span class="border border-red-700/20 px-1 py-0.5 rounded">烏雲歸去</span>
+                            <span class="border border-red-700/20 px-1 py-0.5 rounded">大吉大利</span>
+                        </div>
                     </div>
 
-                    <!-- 貼紙與手繪工具快速加入按鈕 -->
-                    <div class="w-full flex gap-1.5 flex-wrap mb-2 justify-center bg-slate-200/60 p-1.5 rounded-xl border border-slate-300/80">
-                        <button onclick="addSticker('grid')" class="text-xs bg-slate-800 hover:bg-slate-950 text-white px-2.5 py-1.5 rounded font-bold transition-all shadow-sm flex items-center gap-1">
-                            ➕ 貼紙：傳統網格龜 🐢
-                        </button>
-                        <button onclick="addSticker('simple')" class="text-xs bg-slate-800 hover:bg-slate-950 text-white px-2.5 py-1.5 rounded font-bold transition-all shadow-sm flex items-center gap-1">
-                            ➕ 貼紙：經典微笑龜 🏵️
-                        </button>
-                    </div>
+                    <!-- 手繪層 -->
+                    <canvas id="turtleCanvas" class="absolute inset-0 w-full h-full cursor-crosshair z-10"></canvas>
+                    
+                    <!-- 貼紙層 -->
+                    <div id="stickerLayer" class="absolute inset-0 z-20 pointer-events-none"></div>
+                </div>
 
-                    <!-- 畫布容器：背景採用傳統金紙竹黃色，並疊加傳統紅印框 -->
-                    <div id="paperContainer" class="relative w-full aspect-[4/3] bg-[#fdf6e2] border-2 border-amber-800/20 rounded-lg overflow-hidden shadow-md select-none">
+                <!-- 畫筆與貼紙清理工具列 -->
+                <div class="w-full flex flex-col sm:flex-row justify-between items-center mt-3 gap-2">
+                    <div class="flex items-center space-x-2">
+                        <!-- 顏色選擇器 -->
+                        <button onclick="setBrushColor('#1a1a1a')" id="colorBlack" class="w-6 h-6 rounded-full bg-[#1a1a1a] border-2 border-white ring-2 ring-slate-800 transition-all hover:scale-110" title="松煙黑"></button>
+                        <button onclick="setBrushColor('#9c1c1c')" id="colorRed" class="w-6 h-6 rounded-full bg-[#9c1c1c] border-2 border-white ring-2 ring-transparent transition-all hover:scale-110" title="硃砂紅"></button>
                         
-                        <!-- 傳統朱砂紅印與吉祥話飾紋 -->
-                        <div class="absolute inset-0 pointer-events-none flex flex-col justify-between p-4 border-2 border-dashed border-red-700/10 rounded-md m-2 z-0">
-                            <div class="flex justify-between text-[11px] text-red-700/30 font-serif font-bold">
-                                <span class="border border-red-700/20 px-1 py-0.5 rounded">急急如律令</span>
-                                <span class="border border-red-700/20 px-1 py-0.5 rounded">晴天普照</span>
-                            </div>
-                            <div class="flex justify-between text-[11px] text-red-700/30 font-serif font-bold">
-                                <span class="border border-red-700/20 px-1 py-0.5 rounded">烏雲歸去</span>
-                                <span class="border border-red-700/20 px-1 py-0.5 rounded">大吉大利</span>
-                            </div>
-                        </div>
-
-                        <!-- 手繪層 -->
-                        <canvas id="turtleCanvas" class="absolute inset-0 w-full h-full cursor-crosshair z-10"></canvas>
-                        
-                        <!-- 貼紙層 -->
-                        <div id="stickerLayer" class="absolute inset-0 z-20 pointer-events-none"></div>
+                        <!-- 筆觸大小 -->
+                        <span class="text-xs text-slate-700 pl-2">自由手繪筆觸：</span>
+                        <input type="range" id="brushSize" min="2" max="15" value="4" class="w-16 accent-slate-800 bg-slate-200 h-1 rounded-lg">
                     </div>
-
-                    <!-- 畫筆與貼紙清理工具列 -->
-                    <div class="w-full flex flex-col sm:flex-row justify-between items-center mt-3 gap-2">
-                        <div class="flex items-center space-x-2">
-                            <!-- 顏色選擇器 -->
-                            <button onclick="setBrushColor('#1a1a1a')" id="colorBlack" class="w-6 h-6 rounded-full bg-[#1a1a1a] border-2 border-white ring-2 ring-slate-800 transition-all hover:scale-110" title="松煙黑"></button>
-                            <button onclick="setBrushColor('#9c1c1c')" id="colorRed" class="w-6 h-6 rounded-full bg-[#9c1c1c] border-2 border-white ring-2 ring-transparent transition-all hover:scale-110" title="硃砂紅"></button>
-                            
-                            <!-- 筆觸大小 -->
-                            <span class="text-xs text-slate-700 pl-2">自由手繪筆觸：</span>
-                            <input type="range" id="brushSize" min="2" max="15" value="4" class="w-16 accent-slate-800 bg-slate-200 h-1 rounded-lg">
-                        </div>
-                        <div class="flex space-x-2">
-                            <button onclick="clearCanvasAndStickers()" class="text-xs text-slate-800 border border-slate-700/30 px-2.5 py-1.5 rounded-md hover:bg-slate-200 transition-all font-semibold">
-                                🧹 重置金紙 (清空手繪與貼紙)
-                            </button>
-                            <button onclick="undoStroke()" class="text-xs text-slate-800 border border-slate-700/30 px-2.5 py-1.5 rounded-md hover:bg-slate-200 transition-all font-semibold">
-                                ↩️ 復原一筆手繪
-                            </button>
-                        </div>
+                    <div class="flex space-x-2">
+                        <button onclick="clearCanvasAndStickers()" class="text-xs text-slate-800 border border-slate-700/30 px-2.5 py-1.5 rounded-md hover:bg-slate-200 transition-all font-semibold">
+                            🧹 重置金紙
+                        </button>
+                        <button onclick="undoStroke()" class="text-xs text-slate-800 border border-slate-700/30 px-2.5 py-1.5 rounded-md hover:bg-slate-200 transition-all font-semibold">
+                            ↩️ 復原手繪
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- 確認步驟一 -->
-            <div class="mt-4 flex justify-end">
-                <button onclick="proceedToRitual()" id="submitWishBtn" class="w-full md:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-8 py-3 rounded-2xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                    <span>✨ 準備奉納金爐，求得晴空萬里</span>
+            <!-- 下導航按鈕列 -->
+            <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-between items-center">
+                <button onclick="showPage(1)" class="w-full sm:w-auto text-sm text-slate-400 hover:text-white border border-slate-800 hover:border-slate-600 bg-slate-950/20 px-6 py-3.5 rounded-2xl transition-all flex items-center justify-center gap-1.5 font-iansui">
+                    <span>← 返回修改時空資料</span>
+                </button>
+                <button onclick="goToPage3()" class="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-10 py-3.5 rounded-2xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <span>準備焚燒儀式 →</span>
                     <span class="text-lg">🔥</span>
                 </button>
             </div>
         </div>
 
-        <!-- 右側：焚燒儀式神壇與金爐 (儀式進行區) -->
-        <div class="w-full lg:w-2/5 flex flex-col gap-6">
+
+        <!-- ==================== 第三頁：焚燒儀式與金爐頁 ==================== -->
+        <div id="page3" class="w-full max-w-5xl flex flex-col lg:flex-row gap-6 items-stretch justify-center" style="display: none;">
+            
             <!-- 祭祀金爐 -->
-            <div class="bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden flex-grow" id="altarCard">
+            <div class="w-full lg:w-3/5 bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden min-h-[500px]" id="altarCard">
                 <div class="absolute -top-12 -left-12 w-24 h-24 border border-amber-500/10 rounded-full pointer-events-none"></div>
 
-                <!-- 步驟二標題 -->
+                <!-- 步驟三標題 -->
                 <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
                     <h2 class="text-lg font-bold text-amber-200 flex items-center gap-2">
-                        <span class="bg-amber-500/20 text-amber-300 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-mono">2</span>
-                        第二步：奉納焚燒，晴空萬里
+                        <span class="bg-amber-500/20 text-amber-300 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-mono">3</span>
+                        第三步：恭敬點火，羽化升天
                     </h2>
+                    <span class="text-xs text-red-500/80 font-semibold bg-red-500/10 px-2 py-0.5 rounded-full">神火奉納</span>
                 </div>
 
                 <!-- 金爐主體容器 -->
@@ -351,10 +363,17 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
                         </button>
                     </div>
                 </div>
+
+                <!-- 底部返回上一頁修改的退路 -->
+                <div class="mt-2 flex justify-start">
+                    <button onclick="showPage(2)" class="text-xs text-slate-500 hover:text-slate-300 transition-all font-iansui flex items-center gap-1">
+                        <span>← 返回金紙畫布進行微調</span>
+                    </button>
+                </div>
             </div>
 
             <!-- 功德榜 / 歷史晴天牆 -->
-            <div class="bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-5 shadow-2xl relative overflow-hidden h-48 flex flex-col">
+            <div class="w-full lg:w-2/5 bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-5 shadow-2xl relative overflow-hidden h-[500px] flex flex-col">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="text-xs font-bold text-slate-300 flex items-center gap-1.5 tracking-wider">
                         🌟 已在天庭登記的祈願牆 (歷史記錄)
@@ -367,6 +386,7 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
                     <!-- 預設虛擬歷史記錄已移除，改由系統動態渲染空狀態 -->
                 </div>
             </div>
+
         </div>
     </main>
 
@@ -473,11 +493,83 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
         // 本地儲存的歷史願望 (初始設為空，完全不預設任何虛擬願望)
         let wishHistory = [];
 
+        // --- 🟢 新增：三頁式流程分頁控制 ---
+        function showPage(page) {
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "none";
+            document.getElementById("page3").style.display = "none";
+
+            document.getElementById("page" + page).style.display = "block";
+
+            // 如果進入第二頁（Canvas 繪圖頁），重新觸獲並計算畫布大小，避免 A4 金紙與貼紙顯示為 0px 崩潰
+            if (page === 2) {
+                setTimeout(() => {
+                    const canvas = document.getElementById('turtleCanvas');
+                    const paper = document.getElementById('paperContainer');
+                    if (canvas && paper) {
+                        const rect = paper.getBoundingClientRect();
+                        if (rect.width > 0) {
+                            canvas.width = rect.width;
+                            canvas.height = rect.height;
+                            redrawAllCanvasContent();
+                            renderStickers();
+                        }
+                    }
+                }, 50);
+            }
+        }
+
+        // 分頁按鈕跳轉與防呆機制
+        function goToPage2() {
+            const name = document.getElementById('signerName').value.trim();
+            const timeVal = document.getElementById('ritualTime').value.trim();
+            const locVal = document.getElementById('ritualLocation').value.trim();
+
+            if (!name) {
+                showToast("⚠️ 請輸入祈願信眾大名，以利登天記名！");
+                return;
+            }
+            if (!timeVal) {
+                showToast("⚠️ 請註明祈晴的具體日期與時間！");
+                return;
+            }
+            if (!locVal) {
+                showToast("⚠️ 請註明祈晴的地點，福德正神與祈晴娘娘才能精確除雨！");
+                return;
+            }
+            showPage(2);
+        }
+
+        function goToPage3() {
+            const name = document.getElementById('signerName').value.trim();
+            const timeVal = document.getElementById('ritualTime').value.trim();
+            const locVal = document.getElementById('ritualLocation').value.trim();
+
+            if (!name) {
+                showToast("⚠️ 請輸入祈願信眾大名，以利登天記名！");
+                return;
+            }
+            if (!timeVal) {
+                showToast("⚠️ 請註明祈晴的具體日期與時間！");
+                return;
+            }
+            if (!locVal) {
+                showToast("⚠️ 請註明祈晴的地點，福德正神與祈晴娘娘才能精確除雨！");
+                return;
+            }
+
+            proceedToRitual();
+            showPage(3);
+        }
+
         // --- 2. 初始化與事件綁定 ---
         window.onload = function() {
             initCanvases();
             initRainParticles();
             loadHistory();
+            
+            // 預設強制顯示第一頁
+            showPage(1);
 
             // 監聽畫布事件
             const canvas = document.getElementById('turtleCanvas');
@@ -847,6 +939,7 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
             renderStickers();
         }
 
+        // 點選空白處取消選取
         function deselectAllStickers() {
             if (activeStickerId !== null) {
                 activeStickerId = null;
@@ -1220,23 +1313,11 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
             osc.stop(audioCtx.currentTime + 0.3);
         }
 
+        // 奉納金紙，合成 A4 祈福金紙
         function proceedToRitual() {
             const name = document.getElementById('signerName').value.trim();
             const timeVal = document.getElementById('ritualTime').value.trim();
             const locVal = document.getElementById('ritualLocation').value.trim();
-
-            if (!name) {
-                showToast("⚠️ 請輸入祈願信眾大名，以利登天記名！");
-                return;
-            }
-            if (!timeVal) {
-                showToast("⚠️ 請註明祈晴的具體日期與時間！");
-                return;
-            }
-            if (!locVal) {
-                showToast("⚠️ 請註明祈晴的地點，福德正神與祈晴娘娘才能精確除雨！");
-                return;
-            }
 
             deselectAllStickers();
 
@@ -1671,14 +1752,6 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
             showToast("🧹 已恭敬清空所有天庭登記歷史紀錄！");
         }
 
-        // 幫忙填入範例：蘇淳伊的日本大阪環球影城祈願，方便使用者快速體驗
-        function fillSampleData() {
-            document.getElementById('signerName').value = "蔡淳伊";
-            document.getElementById('ritualTime').value = "2026.06.24";
-            document.getElementById('ritualLocation').value = "日本大阪環球影城";
-            handleFormInput();
-        }
-
         function closeHelpModal() {
             const m = document.getElementById('helpModal');
             m.classList.remove('opacity-100');
@@ -1723,7 +1796,7 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
             document.getElementById('paperThumbnail').className = "absolute w-28 aspect-[4/3] bg-[#fdf6e2] border border-amber-800/20 rounded-lg p-1.5 shadow-2xl z-20 cursor-grab transform rotate-[-6deg] hover:scale-105 hover:rotate-2 transition-all duration-300 hidden flex flex-col justify-between text-slate-950 text-[6px]";
             document.getElementById('paperThumbnail').style = "";
             document.getElementById('burnerStatus').innerText = "請填寫祈願信眾、時間地點，並在金紙上佈滿靈龜與大太陽喔！";
-            document.getElementById('burnerSubStatus').innerText = "萬事備妥後，恭敬點火，上達天廳。";
+            document.getElementById('burnerSubStatus').innerText = "萬事備妥後，恭敬點火，上達天聽。";
             document.getElementById('ritualActionBlock').style.display = 'none';
 
             if (isAudioPlaying) {
@@ -1731,59 +1804,10 @@ background:#f59e0b;color:#111;font-weight:bold;border:none;
                 fadeAudio(fireNode, 0.0, 1);
             }
 
+            // 返回首頁 (Page 1)
+            showPage(1);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
-
-<script id="mobile-three-page-patch-js">
-document.addEventListener('DOMContentLoaded',()=>{
- if(window.innerWidth>768) return;
-
- const prep=document.getElementById('preparationCard');
- const altar=document.getElementById('altarCard');
- const history=document.getElementById('wishHistoryContainer')?.closest('.bg-slate-900\/80') || document.querySelectorAll('.bg-slate-900\/80')[2];
-
- if(!prep || !altar) return;
-
- const p1=document.createElement('div');
- const p2=document.createElement('div');
- const p3=document.createElement('div');
-
- p1.className='mobile-page active';
- p2.className='mobile-page';
- p3.className='mobile-page';
-
- prep.parentNode.insertBefore(p1, prep);
- p1.appendChild(prep);
-
- const paper=prep.querySelector('.relative.bg-\[\#ebebeb\]');
- if(paper){
-   p2.appendChild(paper);
-   prep.appendChild(document.createElement('div'));
- }
-
- prep.parentNode.insertBefore(p2, p1.nextSibling);
- prep.parentNode.insertBefore(p3, p2.nextSibling);
-
- p3.appendChild(altar);
- if(history) p3.appendChild(history);
-
- const nav=document.createElement('div');
- nav.className='mobile-nav';
- nav.innerHTML=`
- <button onclick="showMobilePage(0)">1️⃣ 填資料</button>
- <button onclick="showMobilePage(1)">2️⃣ 金紙</button>
- <button onclick="showMobilePage(2)">3️⃣ 金爐</button>`;
- document.body.appendChild(nav);
-
- window.showMobilePage=function(i){
-   document.querySelectorAll('.mobile-page').forEach((p,idx)=>{
-      p.classList.toggle('active',idx===i);
-   });
-   window.scrollTo({top:0});
- }
-});
-</script>
-
 </body>
 </html>
