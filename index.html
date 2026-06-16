@@ -3,1810 +3,905 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>線上燒烏龜祈福儀式 - 撥雲見日求晴天</title>
-    <!-- Tailwind CSS -->
+    <title>神戶大阪旅遊手札 ꪔ̤̮</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter, Noto Sans TC, Klee One (芫荽體之日文原版/完美備用) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+TC:wght@300;400;500;700;900&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
-    <!-- 芫荽體 Iansui Font from jsDelivr (ButTaiwan 開源中文字型) -->
-    <link href="https://cdn.jsdelivr.net/gh/ButTaiwan/iansui/iansui.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Playpen+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        diary: {
+                            paper: '#FAF6EE',      /* 溫潤復古紙張色 */
+                            paperDark: '#EFEAE0',  /* 紙張陰影 */
+                            cover: '#6D5B4F',      /* 皮革書皮色 */
+                            coverLight: '#8C7765',  
+                            accentPink: '#FFB5B5', /* 櫻花粉紙膠帶 */
+                            accentYellow: '#FFE3A8',/* 鵝黃紙膠帶 */
+                            accentBlue: '#B5E2FF',  /* 晴空藍紙膠帶 */
+                            accentGreen: '#C3ECD4', /* 抹茶綠紙膠帶 */
+                            ink: '#2C2A29'          /* 手札墨水色 */
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'Inter', 'sans-serif'],
+                        hand: ['Playpen Sans', 'Noto Sans TC', 'cursive'],
+                        title: ['Fredoka One', 'Noto Sans TC', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         body {
+            background-color: #E6DFD3;
+            background-image: radial-gradient(#D3C8B7 1px, transparent 1px);
+            background-size: 20px 20px;
             font-family: 'Noto Sans TC', 'Inter', sans-serif;
-            background-color: #12131a;
-            overflow-x: hidden;
-        }
-        /* 芫荽體專屬樣式 */
-        .font-iansui {
-            font-family: 'Iansui', '芫荽', 'Klee One', 'Noto Sans TC', sans-serif;
         }
 
-        /* 霧氣與雨天背景過渡效果 */
-        .weather-bg {
-            transition: background 4s cubic-bezier(0.4, 0, 0.2, 1), filter 3s ease;
-        }
-        /* 煙霧微粒動畫 */
-        @keyframes smoke {
-            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.1; }
-            100% { transform: translateY(-160px) scale(2.8) rotate(45deg); opacity: 0; }
-        }
-        .smoke-particle {
-            animation: smoke 4s infinite linear;
-        }
-        
-        /* 擬真紙張碳化燒毀特效 */
-        @keyframes burnToAsh {
-            0% {
-                transform: scale(1) rotate(-6deg) translateY(0);
-                filter: grayscale(0) brightness(1) contrast(1);
-                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-            }
-            20% {
-                transform: scale(0.95) rotate(-3deg) translateY(10px);
-                filter: sepia(0.8) hue-rotate(-15deg) brightness(0.65) contrast(1.2) drop-shadow(0 0 12px rgba(239, 68, 68, 0.6));
-                clip-path: polygon(3% 2%, 97% 4%, 99% 95%, 1% 98%);
-            }
-            45% {
-                transform: scale(0.82) rotate(2deg) translateY(25px);
-                filter: grayscale(0.5) brightness(0.35) contrast(1.4) drop-shadow(0 0 20px rgba(249, 115, 22, 0.9));
-                clip-path: polygon(8% 14%, 91% 7%, 94% 83%, 5% 89%);
-            }
-            70% {
-                transform: scale(0.55) rotate(-8deg) translateY(55px);
-                filter: grayscale(0.9) brightness(0.12) contrast(1.8) drop-shadow(0 0 15px rgba(245, 158, 11, 0.8));
-                clip-path: polygon(22% 26%, 81% 19%, 74% 78%, 26% 72%);
-                opacity: 0.9;
-            }
-            90% {
-                transform: scale(0.22) rotate(15deg) translateY(90px);
-                filter: grayscale(1) brightness(0.04) blur(1.5px);
-                clip-path: polygon(42% 44%, 58% 41%, 56% 58%, 44% 56%);
-                opacity: 0.4;
-            }
-            100% {
-                transform: scale(0.05) rotate(25deg) translateY(120px);
-                filter: grayscale(1) brightness(0) blur(5px);
-                clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
-                opacity: 0;
-            }
-        }
-        .burning-ash {
-            animation: burnToAsh 6.2s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        /* 擬真紙質陰影與紋理 */
+        .paper-texture {
+            background-color: #FAF6EE;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        /* 彩虹過渡 */
-        .rainbow {
-            background: linear-gradient(90deg, 
-                rgba(255, 0, 0, 0.12), 
-                rgba(255, 127, 0, 0.12), 
-                rgba(255, 255, 0, 0.12), 
-                rgba(0, 255, 0, 0.12), 
-                rgba(0, 255, 255, 0.12), 
-                rgba(0, 0, 255, 0.12), 
-                rgba(148, 0, 211, 0.12)
-            );
-            filter: blur(12px);
-            opacity: 0;
-            transition: opacity 6s ease;
+        /* 橫格紙線條效果 */
+        .ruled-lines {
+            background-image: linear-gradient(#e2ddd5 1px, transparent 1px);
+            background-size: 100% 2.2rem;
+            line-height: 2.2rem;
         }
 
-        /* 貼紙控制按鈕外觀 */
-        .sticker-active {
-            border: 2px dashed #b91c1c !important;
-            background: rgba(185, 28, 28, 0.04);
+        /* 中間線圈設計 */
+        .binder-ring {
+            background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #94a3b8 100%);
+            box-shadow: inset -1px 1px 3px rgba(0,0,0,0.2), 1px 2px 4px rgba(0,0,0,0.3);
         }
-        .sticker-control {
+
+        /* 翻頁過渡效果 */
+        .page-container {
+            perspective: 1500px;
+        }
+
+        .notebook-page {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left center;
+        }
+
+        /* 手繪風洗水膠帶 */
+        .washi-tape {
+            opacity: 0.85;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.05);
+            transform: rotate(-1.5deg);
+        }
+
+        /* 隱藏滾動條但保留滾動功能 */
+        .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
-        .sticker-active .sticker-control {
-            display: flex;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 自訂手動打勾動畫 */
+        .checkbox-checked {
+            text-decoration: line-through;
+            color: #94a3b8;
+            opacity: 0.75;
+            transition: all 0.3s ease;
         }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col justify-between weather-bg" id="appBody">
+<body class="min-h-screen py-4 px-2 md:py-8 md:px-4 flex flex-col justify-between items-center no-scrollbar text-diary-ink">
 
-    <header class="w-full max-w-7xl mx-auto px-6 py-4 flex justify-between items-center z-20">
-        <div class="flex items-center space-x-3">
-            <span class="text-3xl">🐢</span>
-            <div>
-                <h1 class="text-xl font-bold tracking-wider text-amber-200 flex items-center gap-2">
-                    烏雲歸去 · 燒烏龜祈福儀式 
-                    <span id="weatherBadge" class="text-xs bg-sky-950/80 text-sky-400 border border-sky-800 px-2 py-0.5 rounded-full">梅雨漫漫</span>
-                </h1>
-                <p class="text-xs text-slate-400 font-iansui">正統 A4 祈願金紙 · 寫明時空 · 靈龜面朝太陽急急如律令</p>
-            </div>
-        </div>
-        <div class="flex items-center space-x-3">
-            <button id="bgmToggleBtn" onclick="toggleAudio()" class="flex items-center space-x-2 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 px-3 py-1.5 rounded-full text-xs text-slate-300 transition-all duration-300 shadow-md">
-                <span id="audioIcon">🔇</span>
-                <span id="audioText">播放儀式環境音</span>
-            </button>
-            <button onclick="openHelpModal()" class="w-8 h-8 rounded-full bg-slate-800/80 border border-slate-700 hover:bg-slate-700 flex items-center justify-center text-xs text-slate-300 transition-all">
-                ❓
-            </button>
-        </div>
-    </header>
-
-    <div class="fixed inset-0 pointer-events-none z-10" id="skyAtmosphere">
-        <!-- 下雨粒子容器 -->
-        <div id="rainContainer" class="absolute inset-0 opacity-60 transition-opacity duration-[3000ms]"></div>
-        <!-- 雲霧層 -->
-        <div id="clouds" class="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-slate-900/90 to-transparent transition-opacity duration-[3000ms] opacity-80"></div>
-        <!-- 暖陽光暈 -->
-        <div id="sunGlow" class="absolute -top-40 -left-40 w-96 h-96 bg-amber-400/20 rounded-full blur-[120px] opacity-0 transition-opacity duration-[5000ms]"></div>
-        <div id="rainbow" class="absolute inset-x-0 top-24 h-24 rainbow"></div>
+    <!-- 頂部手帳標題區 -->
+    <div class="w-full max-w-5xl text-center mb-4">
+        <h1 class="font-title text-2xl md:text-4xl text-diary-cover font-bold flex items-center justify-center gap-2 drop-shadow-sm">
+            <span>🇯🇵 神戶 & 大阪手札</span>
+            <span class="text-xl md:text-2xl animate-bounce">ꪔ̤̮</span>
+        </h1>
+        <p class="text-xs md:text-sm text-amber-800/80 font-medium mt-1">2026.06.22 - 06.26 ✦ 專屬可翻頁精緻旅遊手冊</p>
     </div>
 
-    <!-- 三頁式流程主體容器 -->
-    <main class="w-full max-w-7xl mx-auto px-4 py-4 flex-grow flex flex-col justify-center items-center z-15 relative">
+    <!-- 手帳主容器 -->
+    <div class="w-full max-w-5xl flex flex-col items-center">
         
-        <!-- ==================== 第一頁：祈願資訊頁 ==================== -->
-        <div id="page1" class="w-full max-w-2xl bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 md:p-8 shadow-2xl relative overflow-hidden">
-            <!-- 裝飾花紋 -->
-            <div class="absolute -top-12 -right-12 w-24 h-24 border border-amber-500/10 rounded-full pointer-events-none"></div>
-            
-            <!-- 步驟指示 -->
-            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
-                <h2 class="text-xl font-bold text-amber-200 flex items-center gap-2">
-                    <span class="bg-amber-500/20 text-amber-300 w-7 h-7 rounded-full inline-flex items-center justify-center text-base font-mono">1</span>
-                    第一步：填寫祈願時空資訊
-                </h2>
-                <span class="text-xs text-amber-500/80 font-semibold bg-amber-500/10 px-2.5 py-1 rounded-full">正統儀式登陸</span>
-            </div>
-
-            <!-- 填寫心願與時空表單 -->
-            <div class="space-y-5">
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">✍️ 祈福信眾大名 (請署名)</label>
-                    <input type="text" id="signerName" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">📅 祈晴具體日期與時間</label>
-                    <input type="text" id="ritualTime" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">📍 祈晴具體地點 (越精確越靈驗)</label>
-                    <input type="text" id="ritualLocation" oninput="handleFormInput()" placeholder="" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-all font-iansui">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-300 mb-1.5">🍀 心願類別</label>
-                    <select id="blessingCategory" onchange="handleFormInput()" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-amber-500 transition-all">
-                        <option value="sunny">☀️ 驅除烏雲 · 晴空萬里</option>
-                        <option value="exam">🎓 金榜題名 · 考試順利</option>
-                        <option value="health">🍀 身體健康 · 出入平安</option>
-                        <option value="wealth">💰 開張大吉 · 財源廣進</option>
-                        <option value="love">💖 桃花朵朵 · 良緣美滿</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- 前往第二頁按鈕 -->
-            <div class="mt-8">
-                <button onclick="goToPage2()" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold py-4 rounded-2xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-base">
-                    <span>下一步：繪製祈願金紙</span>
-                    <span class="text-lg">🎨</span>
-                </button>
-            </div>
+        <!-- 頂部頁籤導覽 (桌面版 / 行動版皆可直覺點選) -->
+        <div class="flex flex-wrap justify-center gap-1 md:gap-2 mb-2 w-full max-w-4xl px-2 z-20">
+            <button onclick="goToPage(0)" class="nav-tab bg-diary-cover text-white px-3 py-1.5 rounded-t-lg text-xs md:text-sm font-bold shadow hover:bg-diary-coverLight transition duration-200">封面</button>
+            <button onclick="goToPage(1)" class="nav-tab bg-pink-200 text-amber-950 px-3 py-1.5 rounded-t-lg text-xs md:text-sm font-bold shadow hover:bg-pink-300 transition duration-200">Day 1 神戶</button>
+            <button onclick="goToPage(2)" class="nav-tab bg-amber-100 text-amber-950 px-3 py-1.5 rounded-t-lg text-xs md:text-sm font-bold shadow hover:bg-amber-200 transition duration-200">Day 2 大阪</button>
+            <button onclick="goToPage(3)" class="nav-tab bg-blue-100 text-amber-950 px-3 py-1.5 rounded-t-lg text-xs md:text-sm font-bold shadow hover:bg-blue-200 transition duration-200">Day 3 環球</button>
+            <button onclick="goToPage(4)" class="nav-tab bg-green-100 text-amber-950 px-3 py-1.5 rounded-t-lg text-xs md:text-sm font-bold shadow hover:bg-green-200 transition duration-200">Day 4 美麗港</button>
+            <button onclick="goToPage(5)" class="nav-tab bg-purple-100 text-amber-950 px-3 py-1.5 rounded-t-lg text-xs md:text-sm font-bold shadow hover:bg-purple-200 transition duration-200">Day 5 歸途</button>
+            <button onclick="goToPage(6)" class="nav-tab bg-yellow-100 text-amber-950 px-3 py-1.5 rounded-t-lg text-xs md:text-sm font-bold shadow hover:bg-yellow-200 transition duration-200">口袋靈感</button>
         </div>
 
+        <!-- 手帳外殼與內頁 -->
+        <div class="relative w-full aspect-[4/5] md:aspect-[1.4/1] bg-diary-cover rounded-3xl p-3 md:p-5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] border-4 border-[#504136] flex flex-row overflow-hidden">
+            
+            <!-- 手帳背景裝飾：皮革壓痕線 -->
+            <div class="absolute inset-2 border border-dashed border-[#847264] rounded-2xl pointer-events-none"></div>
 
-        <!-- ==================== 第二頁：繪製金紙頁 ==================== -->
-        <div id="page2" class="w-full max-w-3xl bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 shadow-2xl relative overflow-hidden" style="display: none;">
-            <!-- 裝飾花紋 -->
-            <div class="absolute -top-12 -right-12 w-24 h-24 border border-amber-500/10 rounded-full pointer-events-none"></div>
-
-            <!-- 步驟指示 -->
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                <h2 class="text-lg font-bold text-amber-200 flex items-center gap-2">
-                    <span class="bg-amber-500/20 text-amber-300 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-mono">2</span>
-                    第二步：繪製太陽、鋪滿朝陽靈龜
-                </h2>
-                <span class="text-xs text-amber-500/80 font-semibold bg-amber-500/10 px-2 py-0.5 rounded-full">A4 金紙畫布</span>
+            <!-- 桌面雙頁線圈 - 僅在 md 以上顯示 -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-8 -ml-4 z-30 flex flex-col justify-around items-center py-6 pointer-events-none hidden md:flex">
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
+                <div class="w-7 h-3 binder-ring rounded-full"></div>
             </div>
 
-            <!-- 畫布與貼紙互動區 -->
-            <div class="relative bg-[#ebebeb] border-2 border-slate-800 rounded-2xl p-4 shadow-inner text-slate-950 flex flex-col items-center">
-                <div class="w-full flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-2">
-                    <span class="text-xs font-bold text-slate-700 tracking-wider flex items-center gap-1">
-                        📜 傳統 A4 金紙 (太陽已自動置中，朝陽靈龜會全自動朝向大太陽爬行)
-                    </span>
-                </div>
-
-                <!-- 貼紙工具快速加入按鈕 -->
-                <div class="w-full flex gap-1.5 flex-wrap mb-2 justify-center bg-slate-200/60 p-1.5 rounded-xl border border-slate-300/80">
-                    <button onclick="addSticker('grid')" class="text-xs bg-slate-800 hover:bg-slate-950 text-white px-2.5 py-1.5 rounded font-bold transition-all shadow-sm flex items-center gap-1">
-                        ➕ 貼紙：傳統網格龜 🐢
-                    </button>
-                    <button onclick="addSticker('simple')" class="text-xs bg-slate-800 hover:bg-slate-950 text-white px-2.5 py-1.5 rounded font-bold transition-all shadow-sm flex items-center gap-1">
-                        ➕ 貼紙：經典微笑龜 🏵️
-                    </button>
-                </div>
-
-                <!-- 畫布容器：背景採用傳統金紙竹黃色，並疊加傳統紅印框 -->
-                <div id="paperContainer" class="relative w-full aspect-[4/3] bg-[#fdf6e2] border-2 border-amber-800/20 rounded-lg overflow-hidden shadow-md select-none">
-                    
-                    <!-- 傳統朱砂紅印與吉祥話飾紋 -->
-                    <div class="absolute inset-0 pointer-events-none flex flex-col justify-between p-4 border-2 border-dashed border-red-700/10 rounded-md m-2 z-0">
-                        <div class="flex justify-between text-[11px] text-red-700/30 font-serif font-bold">
-                            <span class="border border-red-700/20 px-1 py-0.5 rounded">急急如律令</span>
-                            <span class="border border-red-700/20 px-1 py-0.5 rounded">晴天普照</span>
-                        </div>
-                        <div class="flex justify-between text-[11px] text-red-700/30 font-serif font-bold">
-                            <span class="border border-red-700/20 px-1 py-0.5 rounded">烏雲歸去</span>
-                            <span class="border border-red-700/20 px-1 py-0.5 rounded">大吉大利</span>
-                        </div>
-                    </div>
-
-                    <!-- 手繪層 -->
-                    <canvas id="turtleCanvas" class="absolute inset-0 w-full h-full cursor-crosshair z-10"></canvas>
-                    
-                    <!-- 貼紙層 -->
-                    <div id="stickerLayer" class="absolute inset-0 z-20 pointer-events-none"></div>
-                </div>
-
-                <!-- 畫筆與貼紙清理工具列 -->
-                <div class="w-full flex flex-col sm:flex-row justify-between items-center mt-3 gap-2">
-                    <div class="flex items-center space-x-2">
-                        <!-- 顏色選擇器 -->
-                        <button onclick="setBrushColor('#1a1a1a')" id="colorBlack" class="w-6 h-6 rounded-full bg-[#1a1a1a] border-2 border-white ring-2 ring-slate-800 transition-all hover:scale-110" title="松煙黑"></button>
-                        <button onclick="setBrushColor('#9c1c1c')" id="colorRed" class="w-6 h-6 rounded-full bg-[#9c1c1c] border-2 border-white ring-2 ring-transparent transition-all hover:scale-110" title="硃砂紅"></button>
+            <!-- 內頁本體 (包含所有翻頁卡片) -->
+            <div id="notebook" class="relative w-full h-full flex flex-col md:flex-row gap-0 rounded-xl overflow-hidden shadow-inner">
+                
+                <!-- ==================== 封面 & 行前準備 (Page Index 0) ==================== -->
+                <div class="notebook-page-group absolute inset-0 w-full h-full flex flex-col md:flex-row z-10" data-page="0">
+                    <!-- 左頁 (手帳封面設計) -->
+                    <div class="w-full md:w-1/2 h-full paper-texture border-r border-diary-paperDark p-4 md:p-8 flex flex-col justify-between relative shadow-md">
+                        <div class="washi-tape bg-diary-accentPink absolute -top-1 -left-4 w-28 h-7 transform -rotate-12 z-10 opacity-90"></div>
+                        <div class="washi-tape bg-diary-accentYellow absolute top-3 right-4 w-24 h-6 transform rotate-6 z-10 opacity-90"></div>
                         
-                        <!-- 筆觸大小 -->
-                        <span class="text-xs text-slate-700 pl-2">自由手繪筆觸：</span>
-                        <input type="range" id="brushSize" min="2" max="15" value="4" class="w-16 accent-slate-800 bg-slate-200 h-1 rounded-lg">
+                        <div class="text-center mt-12 md:mt-20">
+                            <span class="text-3xl md:text-5xl block animate-bounce mb-4">✈️🇯🇵🏖️</span>
+                            <h2 class="font-title text-2xl md:text-4xl text-amber-900 leading-relaxed font-bold tracking-widest">
+                                神戶 ＆ 大阪<br>旅行筆記
+                            </h2>
+                            <div class="w-24 h-1 bg-amber-700 mx-auto my-4 rounded-full"></div>
+                            <p class="font-hand text-sm text-diary-cover font-semibold">KOBE & OSAKA DIARY</p>
+                        </div>
+
+                        <div class="border-t border-amber-800/20 pt-4 text-center mt-auto">
+                            <p class="text-xs text-amber-900/60 font-medium">旅行日期：2026.06.22 - 06.26</p>
+                            <p class="text-[10px] text-amber-900/40 mt-1">💡 點擊右下角按鈕 或上方標籤即可翻頁 💡</p>
+                        </div>
                     </div>
-                    <div class="flex space-x-2">
-                        <button onclick="clearCanvasAndStickers()" class="text-xs text-slate-800 border border-slate-700/30 px-2.5 py-1.5 rounded-md hover:bg-slate-200 transition-all font-semibold">
-                            🧹 重置金紙
-                        </button>
-                        <button onclick="undoStroke()" class="text-xs text-slate-800 border border-slate-700/30 px-2.5 py-1.5 rounded-md hover:bg-slate-200 transition-all font-semibold">
-                            ↩️ 復原手繪
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            <!-- 下導航按鈕列 -->
-            <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-between items-center">
-                <button onclick="showPage(1)" class="w-full sm:w-auto text-sm text-slate-400 hover:text-white border border-slate-800 hover:border-slate-600 bg-slate-950/20 px-6 py-3.5 rounded-2xl transition-all flex items-center justify-center gap-1.5 font-iansui">
-                    <span>← 返回修改時空資料</span>
-                </button>
-                <button onclick="goToPage3()" class="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-10 py-3.5 rounded-2xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                    <span>準備焚燒儀式 →</span>
-                    <span class="text-lg">🔥</span>
-                </button>
-            </div>
-        </div>
-
-
-        <!-- ==================== 第三頁：焚燒儀式與金爐頁 ==================== -->
-        <div id="page3" class="w-full max-w-5xl flex flex-col lg:flex-row gap-6 items-stretch justify-center" style="display: none;">
-            
-            <!-- 祭祀金爐 -->
-            <div class="w-full lg:w-3/5 bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden min-h-[500px]" id="altarCard">
-                <div class="absolute -top-12 -left-12 w-24 h-24 border border-amber-500/10 rounded-full pointer-events-none"></div>
-
-                <!-- 步驟三標題 -->
-                <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
-                    <h2 class="text-lg font-bold text-amber-200 flex items-center gap-2">
-                        <span class="bg-amber-500/20 text-amber-300 w-6 h-6 rounded-full inline-flex items-center justify-center text-sm font-mono">3</span>
-                        第三步：恭敬點火，羽化升天
-                    </h2>
-                    <span class="text-xs text-red-500/80 font-semibold bg-red-500/10 px-2 py-0.5 rounded-full">神火奉納</span>
-                </div>
-
-                <!-- 金爐主體容器 -->
-                <div class="relative flex-grow flex flex-col items-center justify-center py-6 min-h-[300px]">
-                    <!-- 火焰與金爐的精緻 SVG 渲染 -->
-                    <div class="relative w-64 h-64 flex items-center justify-center">
-                        <!-- 金爐背景煙霧 -->
-                        <div id="burnerSmoke" class="absolute top-10 w-40 h-40 pointer-events-none flex justify-center items-end opacity-0"></div>
-
-                        <!-- 金爐 SVG 藝術圖案 -->
-                        <svg class="w-full h-full relative z-10 filter drop-shadow-[0_10px_15px_rgba(0,0,0,0.6)]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <ellipse cx="100" cy="180" rx="60" ry="12" fill="#090a0f" opacity="0.6"/>
-                            <path d="M50 150 L35 180 L50 183 L60 155 Z" fill="#6b5835"/>
-                            <path d="M150 150 L165 180 L150 183 L140 155 Z" fill="#6b5835"/>
-                            <path d="M100 155 L100 185 L95 185 Z" fill="#4d3e23"/>
-                            
-                            <path d="M40 90 C40 150 160 150 160 90 C160 85 40 85 40 90 Z" fill="url(#goldGradient)"/>
-                            <path d="M40 95 C20 95 20 120 40 125 Z" fill="#a1844b" stroke="#5d4a23" stroke-width="4"/>
-                            <path d="M160 95 C180 95 180 120 160 125 Z" fill="#a1844b" stroke="#5d4a23" stroke-width="4"/>
-                            
-                            <ellipse cx="100" cy="90" rx="55" ry="15" fill="#1c130c" stroke="#4a2e16" stroke-width="3"/>
-                            <circle cx="100" cy="120" r="15" fill="#301f11" stroke="#d4af37" stroke-width="2"/>
-                            <path d="M100 110 L100 130 M90 120 L110 120" stroke="#d4af37" stroke-width="1.5"/>
-                            <text x="100" y="123" fill="#d4af37" font-size="8" text-anchor="middle" font-weight="bold">☀️</text>
-
-                            <circle cx="40" cy="95" r="5" fill="#d4af37"/>
-                            <circle cx="160" cy="95" r="5" fill="#d4af37"/>
-
-                            <defs>
-                                <radialGradient id="goldGradient" cx="50%" cy="30%" r="80%">
-                                    <stop offset="0%" stop-color="#b59453"/>
-                                    <stop offset="50%" stop-color="#8c703b"/>
-                                    <stop offset="100%" stop-color="#4d3d1e"/>
-                                </radialGradient>
-                            </defs>
-                        </svg>
-
-                        <!-- 焚燒紙張縮圖 (初始隱藏或未燒時狀態，底色改為傳統金紙竹黃色) -->
-                        <div id="paperThumbnail" class="absolute w-28 aspect-[4/3] bg-[#fdf6e2] border border-amber-800/20 rounded-lg p-1.5 shadow-2xl z-20 cursor-grab transform rotate-[-6deg] hover:scale-105 hover:rotate-2 transition-all duration-300 hidden flex flex-col justify-between text-slate-950 text-[6px]">
-                            <div class="flex justify-between border-b border-amber-800/10 pb-0.5">
-                                <span class="scale-[0.8] origin-left font-bold font-iansui" id="thumbSigner">信眾</span>
-                                <span class="scale-[0.8] origin-right text-amber-800/50 font-iansui">正統祈晴金紙</span>
+                    <!-- 右頁 (行前準備與清單) -->
+                    <div class="w-full md:w-1/2 h-full paper-texture p-4 md:p-8 flex flex-col justify-between relative shadow-md">
+                        <div class="washi-tape bg-diary-accentGreen absolute top-2 right-12 w-24 h-6 transform rotate-3 z-10"></div>
+                        
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="text-lg">🎒</span>
+                                <h3 class="font-bold text-lg text-amber-900 font-title">行前小清單 Check!</h3>
                             </div>
-                            <div class="w-full flex-grow flex items-center justify-center relative my-0.5">
-                                <canvas id="thumbCanvas" class="w-20 h-15 pointer-events-none opacity-95"></canvas>
-                            </div>
-                            <div class="text-[5px] text-center text-red-800/60 scale-[0.8] font-bold font-iansui">
-                                「急急如律令 · 陽光普照」
+                            <div class="space-y-2 md:space-y-3 font-hand text-sm text-amber-950">
+                                <div class="flex items-center gap-2 bg-white/60 p-2 rounded-lg border border-amber-900/10 cursor-pointer" onclick="toggleCheck(this)">
+                                    <input type="checkbox" class="rounded text-amber-700 focus:ring-amber-500" checked>
+                                    <span>護照、回程機票資訊 (長榮 BR134 / BR133)</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-white/60 p-2 rounded-lg border border-amber-900/10 cursor-pointer" onclick="toggleCheck(this)">
+                                    <input type="checkbox" class="rounded text-amber-700 focus:ring-amber-500" checked>
+                                    <span>日本虛擬卡/實體IC卡（儲值好/準備買）</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-white/60 p-2 rounded-lg border border-amber-900/10 cursor-pointer" onclick="toggleCheck(this)">
+                                    <input type="checkbox" class="rounded text-amber-700 focus:ring-amber-500">
+                                    <span>網路 eSIM 卡（確認開通QR碼）</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-white/60 p-2 rounded-lg border border-amber-900/10 cursor-pointer" onclick="toggleCheck(this)">
+                                    <input type="checkbox" class="rounded text-amber-700 focus:ring-amber-500">
+                                    <span>USJ環球影城電子門票 & 整理券 App 準備</span>
+                                </div>
+                                <div class="flex items-center gap-2 bg-white/60 p-2 rounded-lg border border-amber-900/10 cursor-pointer" onclick="toggleCheck(this)">
+                                    <input type="checkbox" class="rounded text-amber-700 focus:ring-amber-500">
+                                    <span>換洗保養品、舒適好走的走路鞋</span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- 爐內燃燒動畫畫布 (疊加在爐口) -->
-                        <canvas id="fireCanvas" class="absolute top-[35px] w-48 h-40 z-15 pointer-events-none"></canvas>
-                    </div>
-
-                    <!-- 提示文字/控制 -->
-                    <div class="text-center mt-4 max-w-xs px-2">
-                        <p id="burnerStatus" class="text-sm font-semibold text-amber-300">請填寫祈願信眾、時間地點，並在金紙上佈滿朝陽靈龜喔！</p>
-                        <p id="burnerSubStatus" class="text-xs text-slate-400 mt-1">萬事備妥後，恭敬點火，上達天聽。</p>
-                    </div>
-
-                    <!-- 投紙與點火按鈕 -->
-                    <div class="mt-4 flex flex-col gap-2 w-full max-w-xs" id="ritualActionBlock" style="display: none;">
-                        <button onclick="startBurningRitual()" class="bg-gradient-to-r from-red-600 to-amber-500 hover:from-red-700 hover:to-amber-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all duration-300 flex items-center justify-center gap-2 animate-pulse">
-                            <span>🔥 恭敬點火，化作輕煙</span>
-                        </button>
+                        <!-- 拍立得點綴 -->
+                        <div class="hidden md:flex bg-white p-2 pb-6 rounded shadow-lg transform rotate-2 w-32 border border-gray-100 self-end mt-4">
+                            <img src="https://images.unsplash.com/photo-1542044896530-05d85be9b11a?auto=format&fit=crop&w=150&q=80" alt="Japan View" class="w-full h-20 object-cover rounded-sm grayscale-[20%]" onerror="this.src='https://placehold.co/150x120/FAF6EE/6D5B4F?text=Osaka'">
+                            <p class="text-[10px] text-center font-hand mt-1.5 text-gray-500">Ready to Go! ✈️</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 底部返回上一頁修改的退路 -->
-                <div class="mt-2 flex justify-start">
-                    <button onclick="showPage(2)" class="text-xs text-slate-500 hover:text-slate-300 transition-all font-iansui flex items-center gap-1">
-                        <span>← 返回金紙畫布進行微調</span>
-                    </button>
+                <!-- ==================== DAY 1 神戶 (Page Index 1) ==================== -->
+                <div class="notebook-page-group absolute inset-0 w-full h-full flex flex-col md:flex-row z-0 hidden" data-page="1">
+                    <!-- 左頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture border-r border-diary-paperDark p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentPink absolute top-2 left-6 w-28 h-6 transform -rotate-1 z-10"></div>
+                            <div class="flex items-center justify-between mb-3 pt-4 border-b border-amber-900/10 pb-2">
+                                <h3 class="font-title text-lg md:text-xl text-pink-700 font-bold">6/22 (一) Day ① ｜ 啟程神戶</h3>
+                                <span class="bg-pink-100 text-pink-800 text-xs px-2.5 py-1 rounded-full font-bold">Kobe</span>
+                            </div>
+
+                            <!-- 行程 timeline -->
+                            <div class="space-y-3 font-medium text-xs md:text-sm">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">06:20</span>
+                                    <div>
+                                        <p class="font-bold flex items-center gap-1 text-amber-950">✈️ 桃園機場第二航廈 <i class="fa-solid fa-square-check text-pink-400 invisible checked-icon"></i></p>
+                                        <p class="text-xs text-gray-500">長榮航空航班資訊 BR134</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">10:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🇯🇵 抵達神戶機場 (UKB)</p>
+                                        <p class="text-xs text-gray-500">抵達第二航廈，入境手續</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">11:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🚇 前往三宮車站寄放行李 🧳</p>
+                                        <div class="bg-white/60 p-2 rounded border border-amber-900/10 mt-1 text-xs text-amber-900 space-y-0.5">
+                                            <p>🚇：ポートライナー PORT LINER (P09 → P01)</p>
+                                            <p>🎫：¥340 (IC卡/自動售票機)</p>
+                                            <p>🕐：18分鐘 (5-10分鐘一班)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">11:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🥩 奢華午餐：神戶牛排鐵板燒</p>
+                                        <p class="text-xs text-red-600 font-semibold mb-1">⚠️ 兩家均無預約，視現場情況排隊：</p>
+                                        <div class="space-y-2 mt-1">
+                                            <div class="bg-[#FFFDF9] p-2 rounded border border-amber-900/10">
+                                                <p class="font-semibold text-amber-900">方案 A: 神戶牛排 Ishida. 本店</p>
+                                                <p class="text-[11px] text-gray-500">〒650-0012 兵庫県神戸市中央区北長狭通1丁目21-21 2TAKAIビル 3F</p>
+                                            </div>
+                                            <div class="bg-[#FFFDF9] p-2 rounded border border-amber-900/10">
+                                                <p class="font-semibold text-amber-900">方案 B: Steakland Kobe</p>
+                                                <p class="text-[11px] text-gray-500">兵庫県神戸市中央区北長狭通1-8-2宮迫ビル1F･2F</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentYellow absolute top-2 right-6 w-28 h-6 transform rotate-2 z-10"></div>
+                            
+                            <div class="space-y-3 font-medium text-xs md:text-sm pt-4">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">13:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">⛩️ 生田神社 💘</p>
+                                        <p class="text-xs text-gray-600">參拜戀愛結緣聖地！必做：買御朱印、去後方「生田之森」體驗神奇的水占卜</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">15:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">☕️ 西村咖啡店 (北野坂店/三宮店)</p>
+                                        <p class="text-xs text-amber-800">🌟 昭和感復古咖啡廳。必點美味焗烤土司、甜點！極推有籃子包裝的套餐🧺，鮮奶油香氣撲鼻 🧈</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">17:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🏡 北野異人館街</p>
+                                        <p class="text-xs text-gray-500">漫步充滿異國風情的優雅街道與舊領事館建築區</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-pink-600 font-bold w-12 shrink-0">18:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🧳 取行李前往大阪（三宮 → 四橋）</p>
+                                        <div class="bg-blue-50/60 p-2 rounded border border-blue-900/10 mt-1 text-xs space-y-1">
+                                            <p>🚇 1. JR東海道、山陽本線（三宮 → 大阪）[西出口]</p>
+                                            <p>🚇 2. 大阪地鐵四橋線（西梅田 → 四橋）</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 飯店資訊便籤 -->
+                        <div class="bg-amber-50 p-3 rounded-lg border-2 border-dashed border-amber-300 mt-4 relative text-xs text-amber-900">
+                            <span class="absolute -top-2.5 right-4 bg-amber-400 text-amber-950 px-2 py-0.5 text-[10px] rounded font-bold">HOTEL INFO</span>
+                            <h4 class="font-bold text-amber-950 flex items-center gap-1">🏨 VIA INN PRIME 心齋橋四橋</h4>
+                            <p class="mt-1">📍 〒550-0013 大阪府大阪市西区新町1丁目5-10 (3F櫃檯)</p>
+                            <p>🚇 地鐵：四橋站❷號出口步行1分鐘 / 1-A出口(有手扶梯)</p>
+                            <p class="text-amber-700 font-bold mt-1">💰 費用：已預付 TWD 6284，現場需另收 TWD 120 現場稅</p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- ==================== DAY 2 大阪 (Page Index 2) ==================== -->
+                <div class="notebook-page-group absolute inset-0 w-full h-full flex flex-col md:flex-row z-0 hidden" data-page="2">
+                    <!-- 左頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture border-r border-diary-paperDark p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentBlue absolute top-2 left-6 w-28 h-6 transform -rotate-2 z-10"></div>
+                            <div class="flex items-center justify-between mb-3 pt-4 border-b border-amber-900/10 pb-2">
+                                <h3 class="font-title text-lg md:text-xl text-blue-700 font-bold">6/23 (二) Day ② ｜ 大阪美食購物</h3>
+                                <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full font-bold">Osaka</span>
+                            </div>
+
+                            <div class="space-y-3 font-medium text-xs md:text-sm">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-blue-600 font-bold w-12 shrink-0">08:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🦞 木津市場（吃早餐）</p>
+                                        <p class="text-xs text-gray-600">🚇：四橋線（四橋 → 大國町）</p>
+                                        <p class="text-xs text-blue-700 font-bold mt-0.5">🌟 攻略必吃：海鮮丼、澎湃壽司、玉子燒、烤干貝</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-blue-600 font-bold w-12 shrink-0">10:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🗼 通天閣・新世界</p>
+                                        <p class="text-xs text-gray-600">體驗大阪昭和平民街區風景</p>
+                                        <p class="text-[11px] text-amber-900">🌟 推薦：八重勝炸串、關西煮 | <span class="text-red-500 font-bold">❌ 避坑：元祖炸串</span></p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-blue-600 font-bold w-12 shrink-0">11:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">💄 日本橋電器街 / 美妝大踩點 (上篇)</p>
+                                        <p class="text-xs text-gray-500">動漫、電器、美妝逛街，體力好可先尋寶</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-blue-600 font-bold w-12 shrink-0">12:30</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🍣 黑門市場</p>
+                                        <p class="text-xs text-red-700 font-bold">🌟 鎖定推薦美食：</p>
+                                        <p class="text-xs text-amber-950">石橋關東煮、鮮魚魚豐（老奶奶鰻魚飯）、現烤大蟹腳、shiki 抹茶、黑銀金槍魚店</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-blue-600 font-bold w-12 shrink-0">14:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🛍️ 日本橋電器街 / 藥妝（彈性補逛）</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentYellow absolute top-2 right-6 w-28 h-6 transform rotate-1 z-10"></div>
+                            
+                            <div class="pt-4">
+                                <div class="flex items-center gap-1.5 mb-2">
+                                    <span class="text-base">🍴</span>
+                                    <h4 class="font-title text-sm text-blue-900 font-bold">15:30 後～難波/道頓堀/心齋橋/四橋美食地圖</h4>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 gap-2 text-[11px] md:text-xs">
+                                    <div class="bg-amber-100/40 p-2 rounded border border-amber-900/10">
+                                        <span class="bg-amber-500 text-white font-bold px-1.5 py-0.5 rounded text-[10px] mr-1">難波</span>
+                                        BAKE CHEESE TART、なにわ麺次郎 (拉麵)、難波地下街 Walk、Namba City
+                                    </div>
+                                    <div class="bg-red-100/40 p-2 rounded border border-red-900/10">
+                                        <span class="bg-red-500 text-white font-bold px-1.5 py-0.5 rounded text-[10px] mr-1">道頓堀</span>
+                                        らぁ麺はやし田 (拉麵)、章魚燒十八番 (章魚燒排隊名店)
+                                    </div>
+                                    <div class="bg-pink-100/40 p-2 rounded border border-pink-900/10">
+                                        <span class="bg-pink-500 text-white font-bold px-1.5 py-0.5 rounded text-[10px] mr-1">心齋橋</span>
+                                        雞Soba座銀 (濃郁雞白湯)、家和らぎ (軟嫩玉子燒)、博多串焼きバッテンよかとぉ、MooKEN (美味泡芙)、PABLO 半熟乳酪塔、心齋橋 PARCO、カヌレ堂 (可麗露超好吃！🧁)
+                                    </div>
+                                    <div class="bg-emerald-100/40 p-2 rounded border border-emerald-900/10">
+                                        <span class="bg-emerald-600 text-white font-bold px-1.5 py-0.5 rounded text-[10px] mr-1">四橋</span>
+                                        New Babe (ニューベイブ 北堀江店 - 超人氣極致豬排)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 可愛章魚燒塗鴉風插畫裝飾 -->
+                        <div class="flex items-center gap-2 mt-2 bg-yellow-50 p-2 rounded border border-yellow-200">
+                            <span class="text-2xl">🐙🍡</span>
+                            <div class="text-[10px] text-amber-900">
+                                <p class="font-bold">吃貨貼心筆記：</p>
+                                <p>這天肚子要留空間給章魚燒、座銀拉麵和極致香脆的可麗露！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== DAY 3 大阪環球影城 (Page Index 3) ==================== -->
+                <div class="notebook-page-group absolute inset-0 w-full h-full flex flex-col md:flex-row z-0 hidden" data-page="3">
+                    <!-- 左頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture border-r border-diary-paperDark p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentPink absolute top-2 left-6 w-28 h-6 transform -rotate-1 z-10"></div>
+                            <div class="flex items-center justify-between mb-3 pt-4 border-b border-amber-900/10 pb-2">
+                                <h3 class="font-title text-lg md:text-xl text-red-600 font-bold">6/24 (三) Day ③ ｜ 環球影城戰略</h3>
+                                <span class="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-bold">USJ🌍</span>
+                            </div>
+
+                            <div class="space-y-3 font-medium text-xs md:text-sm">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200">
+                                    <span class="text-red-500 font-bold w-12 shrink-0">07:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🚇 前往 USJ (多段地鐵轉乘)</p>
+                                        <div class="bg-red-50/60 p-2 rounded border border-red-900/10 mt-1 text-xs space-y-0.5 text-amber-900">
+                                            <p>1. 四橋線 (四橋 → 難波)</p>
+                                            <p>2. 阪神難波線 (大阪難波 → 西九條⑵)</p>
+                                            <p>3. JR夢咲線 (西九條 → 環球城)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200">
+                                    <span class="text-red-500 font-bold w-12 shrink-0">07:30</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🌟 抵達門口排隊入園</p>
+                                        <p class="text-xs text-gray-600">寄放道具 (可利用環球奇境置物櫃)</p>
+                                        <p class="text-xs text-red-600 font-bold mt-1">🎟️ 重要：一入園立刻用 APP 抽取「任天堂馬利歐世界」整理券 (建議選下午場)</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200">
+                                    <span class="text-red-500 font-bold w-12 shrink-0">上午場</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🧙‍♀️ 哈利波特魔法世界</p>
+                                        <div class="bg-white/60 p-2 rounded border border-amber-900/10 mt-1 text-xs space-y-1">
+                                            <p>🎢 必玩：禁忌之旅、鷹馬飛行</p>
+                                            <p>🍺 必喝：冰涼香甜的奶油啤酒</p>
+                                            <p>📸 拍照點：三根掃帚後方平台/橋上拍霍格華茲城堡倒影、妙麗跑</p>
+                                            <p>🛒 必敗：嘿美互動小吊飾</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentGreen absolute top-2 right-6 w-28 h-6 transform rotate-2 z-10"></div>
+                            
+                            <div class="space-y-3 font-medium text-xs md:text-sm pt-4">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200">
+                                    <span class="text-red-500 font-bold w-12 shrink-0">12:30+</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🍄 瑪利歐世界 (預計整理券時段)</p>
+                                        <div class="bg-[#FFFDF9] p-2 rounded border border-amber-900/10 mt-1 text-xs space-y-1">
+                                            <p>🎢 體驗最新的 咚奇剛炫風礦車！</p>
+                                            <p>🍴 奇諾比奧咖啡廳 (可愛美味又好拍)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200">
+                                    <span class="text-red-500 font-bold w-12 shrink-0">下午場</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🦖 侏羅紀公園區</p>
+                                        <p class="text-xs text-gray-600">挑戰超狂雲霄飛車「飛天翼龍」！</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200">
+                                    <span class="text-red-500 font-bold w-12 shrink-0">傍晚場</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🍌 小小兵樂園 & 商店街</p>
+                                        <p class="text-xs text-gray-600">去打香蕉贏取小小兵玩偶！最後去大門商店街補齊周邊好物</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 可愛拍立得插畫 -->
+                        <div class="bg-amber-100/40 p-2.5 rounded-lg border border-amber-300 mt-4 text-xs text-amber-900">
+                            <h4 class="font-bold text-red-700">🎒 USJ 隨身大補帖</h4>
+                            <p class="mt-1 text-[11px]">這天活動量極大，請一定要帶小瓶水跟行充，入園前要吃飽，準備迎接快樂又充實的一天 ꪔ̤̮</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== DAY 4 神戶 (Page Index 4) ==================== -->
+                <div class="notebook-page-group absolute inset-0 w-full h-full flex flex-col md:flex-row z-0 hidden" data-page="4">
+                    <!-- 左頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture border-r border-diary-paperDark p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentGreen absolute top-2 left-6 w-28 h-6 transform -rotate-1 z-10"></div>
+                            <div class="flex items-center justify-between mb-3 pt-4 border-b border-amber-900/10 pb-2">
+                                <h3 class="font-title text-lg md:text-xl text-emerald-700 font-bold">6/25 (四) Day ④ ｜ 神戶港灣浪漫行</h3>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Kobe Port</span>
+                            </div>
+
+                            <div class="space-y-3 font-medium text-xs md:text-sm">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-emerald-600 font-bold w-12 shrink-0">09:30</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🏨 辦理退房</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-emerald-600 font-bold w-12 shrink-0">10:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🚇 返回神戶三宮車站</p>
+                                        <div class="bg-emerald-50/60 p-2 rounded border border-emerald-900/10 mt-1 text-[11px] space-y-0.5 text-amber-900">
+                                            <p>1. 四橋線 (四橋 → 西梅田/梅田)</p>
+                                            <p>2. JR東海道、山陽本線 (大阪 → 三宮)</p>
+                                            <p>★ 抵達後先至今晚飯店寄放行李 🧳</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-emerald-600 font-bold w-12 shrink-0">11:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🥩 銷魂午餐：日式炸牛排</p>
+                                        <p class="text-[11px] text-gray-500 mt-1">🍴 Grill Ippei グリル一平 三宮店 (排隊人氣店，不預約)</p>
+                                        <p class="text-[10px] text-gray-400">📍 〒651-0094 兵庫県神戸市中央区琴ノ緒町5-5-26 1F</p>
+                                        <p class="text-[11px] text-amber-800 font-semibold mt-1">💡 備選：とんかつ四郎吉 (精緻炸豬排)</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-emerald-600 font-bold w-12 shrink-0">15:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🎡 神戶港 Harborland</p>
+                                        <p class="text-xs text-gray-600">在臨海樂園逛街吹海風，欣賞港口與摩天輪地標美景</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentYellow absolute top-2 right-6 w-28 h-6 transform rotate-2 z-10"></div>
+                            
+                            <div class="space-y-3 font-medium text-xs md:text-sm pt-4">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-emerald-600 font-bold w-12 shrink-0">17:30</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🗼 美利堅公園 & BE KOBE 地標</p>
+                                        <p class="text-xs text-gray-600">必拍著名的「BE KOBE」巨型立體裝置，以及嶄新燈光斑斕的神戶港口塔，欣賞絕美魔幻時刻夕陽</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-emerald-600 font-bold w-12 shrink-0">19:30</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🚕 前往晚餐餐廳</p>
+                                        <p class="text-xs text-amber-800">可選海岸線地鐵（港元町 → 三宮·花時計前）或直接搭乘計程車省力</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-emerald-600 font-bold w-12 shrink-0">20:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">🔥 精緻晚餐：炭燒肉 石田屋。 Hanare</p>
+                                        <p class="text-xs text-red-600 font-bold">⏰ 預約時間：晚上 20:00 準時入場</p>
+                                        <p class="text-[11px] text-gray-500">📍 兵庫県神戸市中央区北長狭通1-21-2 TAKAIビル7F (JR三之宮站西口步行2分)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 飯店資訊便籤 -->
+                        <div class="bg-emerald-50 p-2.5 rounded-lg border-2 border-dashed border-emerald-300 mt-4 relative text-[11px] text-amber-900">
+                            <span class="absolute -top-2.5 right-4 bg-emerald-400 text-white px-2 py-0.5 text-[10px] rounded font-bold">HOTEL INFO</span>
+                            <h4 class="font-bold text-amber-950">🏨 BRENZA HOTEL（神戶）</h4>
+                            <p>📍 6 Chome-1-1 Kumoidori, Chuo Ward, Kobe, Hyogo 651-0096</p>
+                            <p>🚇 三之宮23出口或東口 (★注意：大路中央幹線施工封路，請從地鐵出來注意動線)</p>
+                            <p class="text-emerald-700 font-bold">💰 費用：已預付 TWD 2053</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== DAY 5 (Page Index 5) ==================== -->
+                <div class="notebook-page-group absolute inset-0 w-full h-full flex flex-col md:flex-row z-0 hidden" data-page="5">
+                    <!-- 左頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture border-r border-diary-paperDark p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentPink absolute top-2 left-6 w-28 h-6 transform -rotate-2 z-10"></div>
+                            <div class="flex items-center justify-between mb-3 pt-4 border-b border-amber-900/10 pb-2">
+                                <h3 class="font-title text-lg md:text-xl text-purple-700 font-bold">6/26 (五) Day ⑤ ｜ 踏上歸途</h3>
+                                <span class="bg-purple-100 text-purple-800 text-xs px-2.5 py-1 rounded-full font-bold">Airport</span>
+                            </div>
+
+                            <div class="space-y-4 font-medium text-xs md:text-sm">
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-purple-600 font-bold w-12 shrink-0">上午</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">☕️ 慢活早餐 & 整理行李行李</p>
+                                        <p class="text-xs text-gray-500">在神戶市區享用早餐，做最後的藥妝、土產巡禮與行李打包</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-start hover:bg-black/5 p-1 rounded transition duration-200 cursor-pointer" onclick="toggleCheck(this)">
+                                    <span class="text-purple-600 font-bold w-12 shrink-0">11:00</span>
+                                    <div>
+                                        <p class="font-bold text-amber-950">✈️ 抵達神戶機場第二航廈</p>
+                                        <p class="text-xs text-purple-800 font-bold">長榮航空航班資訊：BR133</p>
+                                        <p class="text-xs text-gray-500">祝這趟神戶大阪之旅留下滿滿美好與美味的回憶！</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-12 py-6 border-t border-dashed border-gray-300">
+                            <span class="text-5xl">🧸💌</span>
+                            <p class="font-hand font-bold text-amber-900 mt-2">See you next time, Japan!</p>
+                        </div>
+                    </div>
+
+                    <!-- 右頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentYellow absolute top-2 right-6 w-28 h-6 transform rotate-2 z-10"></div>
+                            
+                            <div class="pt-4">
+                                <div class="flex items-center gap-1.5 mb-3">
+                                    <span class="text-base">📝</span>
+                                    <h4 class="font-title text-sm text-purple-900 font-bold">我的購物與回憶隨記備忘</h4>
+                                </div>
+                                
+                                <div class="space-y-2 font-hand text-xs md:text-sm">
+                                    <textarea class="w-full h-40 p-3 bg-white/70 border border-amber-900/15 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-400 shadow-inner resize-none text-diary-ink leading-relaxed" placeholder="在這裡寫下你的戰利品清單、想代購的藥妝、或是旅行中的溫暖小事...✍️"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 貼心提示小貼紙 -->
+                        <div class="bg-purple-50 p-2.5 rounded border border-purple-200 text-[10px] text-purple-950">
+                            <p class="font-bold">💡 回程登機叮嚀：</p>
+                            <p>記得將液體類、剪刀等工具放入託運行李，隨身攜帶行動電源及貴重金屬。護照及免稅單據要收好喔！</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==================== 口袋靈感影片連結 (Page Index 6) ==================== -->
+                <div class="notebook-page-group absolute inset-0 w-full h-full flex flex-col md:flex-row z-0 hidden" data-page="6">
+                    <!-- 左頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture border-r border-diary-paperDark p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentBlue absolute top-2 left-6 w-28 h-6 transform -rotate-1 z-10"></div>
+                            <div class="flex items-center justify-between mb-3 pt-4 border-b border-amber-900/10 pb-2">
+                                <h3 class="font-title text-lg md:text-xl text-amber-800 font-bold">🎬 旅遊口袋靈感 (IG/Threads)</h3>
+                                <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold">Videos</span>
+                            </div>
+
+                            <p class="text-xs text-gray-500 mb-4 font-hand">把你在社群上存下來的寶藏旅遊 Reel 與貼文整理在這裡，點擊即可一鍵跳轉參考！🎥</p>
+
+                            <div class="space-y-3">
+                                <!-- 連結卡片 1 -->
+                                <a href="https://www.instagram.com/reel/DXmN2znD1fQ/?igsh=MWVsYXl2cmIwZjFjcA==" target="_blank" class="block p-3 bg-white hover:bg-amber-50 rounded-lg border border-amber-900/10 shadow-sm transition duration-300 transform hover:-translate-y-0.5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-pink-100 text-pink-600 p-2 rounded-full"><i class="fa-brands fa-instagram text-lg"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-xs text-amber-950">神戶大阪私房推薦 Reel</h4>
+                                            <p class="text-[10px] text-gray-500 mt-0.5">點擊前往 Instagram 觀看影片</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- 連結卡片 2 -->
+                                <a href="https://www.threads.com/@sleepycat9898/post/DWBIXhiASJa?xmt=AQG0QPCDnRvQUMpD-wrB-fshJoyQruwaapRVLu8N_F6y_dXVZpvhKhrRGCExhIxPaYb8pLOl&slof=1" target="_blank" class="block p-3 bg-white hover:bg-amber-50 rounded-lg border border-amber-900/10 shadow-sm transition duration-300 transform hover:-translate-y-0.5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-gray-100 text-gray-800 p-2 rounded-full"><i class="fa-brands fa-threads text-lg"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-xs text-amber-950">Kobe & Osaka 攻略細節</h4>
+                                            <p class="text-[10px] text-gray-500 mt-0.5">點擊前往 Threads 貼文詳閱討論</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 簡約裝飾 -->
+                        <div class="bg-yellow-50/50 p-2.5 rounded border border-yellow-200 text-[10px] text-amber-900 mt-4">
+                            <p class="font-bold">💡 實用小秘訣：</p>
+                            <p>出發前多看看影片複習一下點餐跟排隊動線，能幫旅程省去很多找路時間喔！</p>
+                        </div>
+                    </div>
+
+                    <!-- 右頁 -->
+                    <div class="w-full md:w-1/2 h-full paper-texture p-4 md:p-6 flex flex-col justify-between overflow-y-auto no-scrollbar">
+                        <div>
+                            <div class="washi-tape bg-diary-accentGreen absolute top-2 right-6 w-28 h-6 transform rotate-2 z-10"></div>
+                            
+                            <div class="pt-4 space-y-3">
+                                <h4 class="font-title text-xs text-amber-900 font-bold flex items-center gap-1.5"><i class="fa-solid fa-bookmark text-amber-700"></i> 大阪重點存檔</h4>
+                                
+                                <!-- 連結卡片 3 -->
+                                <a href="https://www.instagram.com/reel/DZEY9I6RWMV/?igsh=MW42c2hicXVkbXM4Zg==" target="_blank" class="block p-3 bg-white hover:bg-amber-50 rounded-lg border border-amber-900/10 shadow-sm transition duration-300 transform hover:-translate-y-0.5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-pink-100 text-pink-600 p-2 rounded-full"><i class="fa-brands fa-instagram text-lg"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-xs text-amber-950">Namba City 難波商圈攻略</h4>
+                                            <p class="text-[10px] text-gray-500 mt-0.5">點擊觀看難波城好逛好買特色 Reel 🛍️</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <!-- 連結卡片 4 -->
+                                <a href="https://www.instagram.com/reel/DUDQf6cj7tu/?igsh=dTdpczcyOWx3a3Yz" target="_blank" class="block p-3 bg-white hover:bg-amber-50 rounded-lg border border-amber-900/10 shadow-sm transition duration-300 transform hover:-translate-y-0.5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full"><i class="fa-solid fa-kit-medical text-lg"></i></div>
+                                        <div>
+                                            <h4 class="font-bold text-xs text-amber-950">唐吉訶德皮膚急救神物 ✨</h4>
+                                            <p class="text-[10px] text-gray-500 mt-0.5">點擊前往 Instagram 收藏影片</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- 底部貼紙裝飾 -->
+                        <div class="bg-red-50 p-3 rounded-lg border border-red-200 flex items-center gap-2 mt-4">
+                            <span class="text-2xl">🔥</span>
+                            <div class="text-[10px] text-amber-900">
+                                <p class="font-bold">Donki 買藥妝看這裡！</p>
+                                <p>如果旅途中皮膚乾癢、太乾起皮，記得把「唐吉訶德急救神器」拿給店員看直接找貨！</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <!-- 功德榜 / 歷史晴天牆 -->
-            <div class="w-full lg:w-2/5 bg-slate-900/80 backdrop-blur-md rounded-3xl border border-slate-800 p-5 shadow-2xl relative overflow-hidden h-[500px] flex flex-col">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xs font-bold text-slate-300 flex items-center gap-1.5 tracking-wider">
-                        🌟 已在天庭登記的祈願牆 (歷史記錄)
-                    </h3>
-                    <button onclick="clearHistory()" class="text-[10px] text-red-400 hover:text-red-300 border border-red-900/40 hover:border-red-800 bg-red-950/20 px-2.5 py-1 rounded-full transition-all font-iansui flex items-center gap-0.5 shadow-sm" title="清空本機瀏覽器的歷史登記快取">
-                        🧹 清除天庭紀錄
-                    </button>
-                </div>
-                <div id="wishHistoryContainer" class="flex-grow overflow-y-auto space-y-2 pr-1 text-xs">
-                    <!-- 預設虛擬歷史記錄已移除，改由系統動態渲染空狀態 -->
-                </div>
-            </div>
-
         </div>
-    </main>
 
-    <footer class="w-full max-w-7xl mx-auto px-6 py-4 text-center text-xs text-slate-500 z-20">
-        <p>© 2026 線上燒烏龜祈福神壇 · 傳統民俗數位體驗儀式</p>
-        <p class="mt-1">提醒：本網頁為趣味及舒壓用途。珍惜資源、注意防火。祝您天天陽光普照！☀️</p>
+        <!-- 下方翻頁大按鈕 (前後頁) -->
+        <div class="flex justify-between items-center w-full max-w-4xl px-4 mt-4">
+            <button onclick="prevPage()" class="bg-white/80 hover:bg-white text-diary-cover font-bold px-4 py-2 rounded-full shadow-md flex items-center gap-2 transition duration-200 border border-amber-900/10 text-xs md:text-sm">
+                <i class="fa-solid fa-arrow-left"></i> 上一頁
+            </button>
+            <div class="text-xs md:text-sm text-amber-900/70 font-bold bg-white/40 px-3 py-1.5 rounded-full" id="pageNumberDisplay">
+                封面・1 / 7
+            </div>
+            <button onclick="nextPage()" class="bg-white/80 hover:bg-white text-diary-cover font-bold px-4 py-2 rounded-full shadow-md flex items-center gap-2 transition duration-200 border border-amber-900/10 text-xs md:text-sm">
+                下一頁 <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- 底部裝飾聲明 -->
+    <footer class="w-full text-center py-4 text-[10px] md:text-xs text-amber-800/50 mt-4 font-semibold">
+        © 2026 神戶大阪專屬旅遊手札 ꪔ̤̮ ✦ Have a nice trip!
     </footer>
 
-    <!-- 關於彈窗 -->
-    <div id="helpModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-900 border border-slate-800 w-full max-w-md p-6 rounded-3xl shadow-2xl mx-4">
-            <div class="flex justify-between items-start mb-4">
-                <h3 class="text-lg font-bold text-amber-300 flex items-center gap-1.5">
-                    🐢 關於正統「燒烏龜」儀式
-                </h3>
-                <button onclick="closeHelpModal()" class="text-slate-400 hover:text-white transition-colors">✕</button>
-            </div>
-            <div class="text-sm text-slate-300 space-y-3 leading-relaxed">
-                <p><strong>「燒烏龜」是什麼？</strong></p>
-                <p>這是台灣與華人地區口耳相傳的求晴天民俗偏方。相傳在即將舉辦重要戶外活動前（如戶外婚禮、畢業旅行、露營、路跑），在一張雙面空白、乾燥的 A4 紙上寫下祈願的時間與地點，在紙中央畫一個微笑的大太陽，並畫上/貼上大量面向著大太陽爬行的烏龜，最後在金爐中燒化給上天，取其諧音「烏雲歸去」，即可求得萬里晴天！</p>
-                <p><strong>本壇正統四大流程：</strong></p>
-                <ol class="list-decimal list-inside space-y-1.5 pl-1 text-slate-400">
-                    <li><strong class="text-amber-200">繪製微笑太陽</strong>：金紙中央正上方已為您奉上手繪太陽。若嫌不夠，還可以自由添加「太陽貼紙」！</li>
-                    <li><strong class="text-amber-200">繪製或粘貼靈龜</strong>：可手繪或無限添加「爬行靈龜」貼紙，將牠們都轉向中央的大太陽。</li>
-                    <li><strong class="text-amber-200">註明時空</strong>：務必填寫具體姓名、日期時間與地點。</li>
-                    <li><strong class="text-amber-200">奉納焚燒</strong>：按下點火，看著金紙在金爐中化作炭焦飛灰升天，撥雲見日！</li>
-                </ol>
-            </div>
-            <button onclick="closeHelpModal()" class="w-full mt-6 bg-slate-800 hover:bg-slate-700 text-slate-200 py-2 rounded-xl transition-all">
-                我知道了，準備發功！
-            </button>
-        </div>
-    </div>
-
-    <!-- 成功畫面 -->
-    <div id="successModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-500">
-        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-500/30 w-full max-w-lg p-8 rounded-3xl shadow-2xl shadow-amber-500/10 mx-4 text-center relative overflow-hidden">
-            <div class="absolute -top-24 -left-24 w-48 h-48 bg-amber-500/20 rounded-full blur-[60px]"></div>
-            <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-sky-500/20 rounded-full blur-[60px]"></div>
-
-            <div class="text-6xl mb-4 animate-bounce">☀️</div>
-            <h3 class="text-2xl font-black text-amber-200 mb-2">撥雲見日 · 天降祥瑞</h3>
-            <p class="text-sm text-slate-300 max-w-md mx-auto mb-6" id="successFortuneText">
-                您的靈龜祈願文已化作青煙直達天聽！天界雷公與雨神已暫避，太陽公公已就位，祝您所求皆如願！
-            </p>
-
-            <!-- 簽名祈願信紙重現 -->
-            <div class="bg-[#fdf6e2] border-2 border-dashed border-red-700/30 rounded-2xl p-4 text-slate-950 text-left max-w-sm mx-auto mb-6 relative shadow-inner">
-                <div class="absolute top-2 right-2 text-xs bg-red-100 border border-red-300 text-red-700 px-2 py-0.5 rounded font-serif transform rotate-6 font-bold font-iansui">
-                    加急法旨
-                </div>
-                <h4 class="font-serif font-bold text-slate-900 border-b border-amber-800/15 pb-2 mb-2 flex items-center gap-1 font-iansui">
-                    📜 大顯神威祈晴天法帖
-                </h4>
-                <div class="text-sm space-y-1.5 font-medium text-slate-800 font-iansui leading-relaxed">
-                    <p>信眾大名：<span class="font-bold border-b border-red-700/20 px-1 font-iansui text-slate-900" id="finalName">蘇淳伊</span></p>
-                    <p>祈晴時段：<span class="font-bold text-slate-900 font-iansui" id="finalTime">2026.06.24</span></p>
-                    <p>祈晴地點：<span class="font-bold text-slate-900 font-iansui" id="finalLocation">日本大阪環球影城</span></p>
-                    <p>事項類別：<span class="font-bold text-red-800 font-iansui" id="finalCategory">驅除烏雲 · 晴天普照</span></p>
-                </div>
-                <div class="border-t border-amber-800/10 mt-3 pt-2 text-[10px] text-center text-red-800/50 font-serif font-bold font-iansui">
-                    「天宮福德正神與祈晴娘娘急急如律令 · 陽光普照」
-                </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-3">
-                <button onclick="shareBlessing()" class="flex-grow bg-slate-800 hover:bg-slate-700 text-slate-200 py-3 rounded-2xl transition-all font-semibold flex items-center justify-center gap-2">
-                    📋 複製法帖願望
-                </button>
-                <button onclick="restartRitual()" class="flex-grow bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 py-3 rounded-2xl transition-all font-bold shadow-lg shadow-amber-500/20">
-                    💖 再次祈願求福
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // --- 1. 全域變數與系統狀態 ---
-        let audioCtx = null;
-        let rainNode = null;
-        let fireNode = null;
-        let isAudioPlaying = false;
+        // 翻頁索引控制
+        let currentPageIndex = 0;
+        const totalPages = 7; // 共 7 個頁面組 (0 到 6)
         
-        let brushColor = '#1a1a1a';
-        let brushSize = 4;
-        let isDrawing = false;
-        let lastX = 0;
-        let lastY = 0;
+        // 頁面名稱對照
+        const pageNames = [
+            "封面・行前準備",
+            "Day 1 神戶啟程",
+            "Day 2 大阪美食",
+            "Day 3 環球影城",
+            "Day 4 神戶港灣",
+            "Day 5 歸途/備忘",
+            "口袋靈感 / 影片"
+        ];
 
-        // 儲存手繪軌跡
-        let userStrokes = [];
-        let currentStroke = null;
-        let undoStack = []; 
-
-        // 貼紙資料儲存與互動狀態
-        let stickers = [];
-        let activeStickerId = null;
-        let isDraggingSticker = false;
-        let isRotatingSticker = false;
-        let stickerDragOffset = { x: 0, y: 0 };
-        let stickerInitialAngle = 0;
-        let stickerStartMouseAngle = 0;
-
-        // 本地儲存的歷史願望 (初始設為空，完全不預設任何虛擬願望)
-        let wishHistory = [];
-
-        // --- 🟢 新增：三頁式流程分頁控制 ---
-        function showPage(page) {
-            document.getElementById("page1").style.display = "none";
-            document.getElementById("page2").style.display = "none";
-            document.getElementById("page3").style.display = "none";
-
-            document.getElementById("page" + page).style.display = "block";
-
-            // 如果進入第二頁（Canvas 繪圖頁），重新觸獲並計算畫布大小，避免 A4 金紙與貼紙顯示為 0px 崩潰
-            if (page === 2) {
-                setTimeout(() => {
-                    const canvas = document.getElementById('turtleCanvas');
-                    const paper = document.getElementById('paperContainer');
-                    if (canvas && paper) {
-                        const rect = paper.getBoundingClientRect();
-                        if (rect.width > 0) {
-                            canvas.width = rect.width;
-                            canvas.height = rect.height;
-                            redrawAllCanvasContent();
-                            renderStickers();
-                        }
-                    }
-                }, 50);
-            }
-        }
-
-        // 分頁按鈕跳轉與防呆機制
-        function goToPage2() {
-            const name = document.getElementById('signerName').value.trim();
-            const timeVal = document.getElementById('ritualTime').value.trim();
-            const locVal = document.getElementById('ritualLocation').value.trim();
-
-            if (!name) {
-                showToast("⚠️ 請輸入祈願信眾大名，以利登天記名！");
-                return;
-            }
-            if (!timeVal) {
-                showToast("⚠️ 請註明祈晴的具體日期與時間！");
-                return;
-            }
-            if (!locVal) {
-                showToast("⚠️ 請註明祈晴的地點，福德正神與祈晴娘娘才能精確除雨！");
-                return;
-            }
-            showPage(2);
-        }
-
-        function goToPage3() {
-            const name = document.getElementById('signerName').value.trim();
-            const timeVal = document.getElementById('ritualTime').value.trim();
-            const locVal = document.getElementById('ritualLocation').value.trim();
-
-            if (!name) {
-                showToast("⚠️ 請輸入祈願信眾大名，以利登天記名！");
-                return;
-            }
-            if (!timeVal) {
-                showToast("⚠️ 請註明祈晴的具體日期與時間！");
-                return;
-            }
-            if (!locVal) {
-                showToast("⚠️ 請註明祈晴的地點，福德正神與祈晴娘娘才能精確除雨！");
-                return;
-            }
-
-            proceedToRitual();
-            showPage(3);
-        }
-
-        // --- 2. 初始化與事件綁定 ---
-        window.onload = function() {
-            initCanvases();
-            initRainParticles();
-            loadHistory();
+        // 翻頁至特定頁面
+        function goToPage(index) {
+            if (index < 0 || index >= totalPages) return;
             
-            // 預設強制顯示第一頁
-            showPage(1);
-
-            // 監聽畫布事件
-            const canvas = document.getElementById('turtleCanvas');
-            canvas.addEventListener('mousedown', startStroke);
-            canvas.addEventListener('mousemove', drawStroke);
-            canvas.addEventListener('mouseup', endStroke);
-            canvas.addEventListener('mouseleave', endStroke);
-
-            // 支援行動端觸控手繪
-            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-            canvas.addEventListener('touchend', endStroke);
-
-            // 點擊空白處取消選取貼紙
-            document.getElementById('paperContainer').addEventListener('pointerdown', function(e) {
-                if (e.target.id === 'turtleCanvas') {
-                    deselectAllStickers();
-                }
-            });
-
-            // 貼紙的移動與旋轉全域監聽 (PointerEvents 優化全平台支援)
-            window.addEventListener('pointermove', handlePointerMove);
-            window.addEventListener('pointerup', handlePointerUp);
-
-            // 筆觸大小監聽
-            document.getElementById('brushSize').addEventListener('input', (e) => {
-                brushSize = e.target.value;
-            });
-
-            // 當系統字型完全加載完成後，強制重繪一次畫布，確保芫荽體完美渲染
-            if (document.fonts) {
-                document.fonts.ready.then(() => {
-                    redrawAllCanvasContent();
-                });
+            // 隱藏當前頁面
+            const activePage = document.querySelector(`.notebook-page-group[data-page="${currentPageIndex}"]`);
+            if (activePage) {
+                activePage.classList.add('hidden');
+                activePage.classList.remove('z-10');
+                activePage.classList.add('z-0');
             }
 
-            // 監聽畫布大小變動，自動適應尺寸
-            const resizeObserver = new ResizeObserver(entries => {
-                for (let entry of entries) {
-                    const canvas = document.getElementById('turtleCanvas');
-                    if (canvas && entry.contentRect.width > 0) {
-                        const oldWidth = canvas.width;
-                        const oldHeight = canvas.height;
-                        canvas.width = entry.contentRect.width;
-                        canvas.height = entry.contentRect.height;
-                        
-                        // 隨著視窗縮放自動調整軌跡比例，防止手繪跑位
-                        if (oldWidth > 0 && oldHeight > 0) {
-                            const scaleX = canvas.width / oldWidth;
-                            const scaleY = canvas.height / oldHeight;
-                            userStrokes.forEach(stroke => {
-                                stroke.points.forEach(pt => {
-                                    pt.x *= scaleX;
-                                    pt.y *= scaleY;
-                                });
-                            });
-                            stickers.forEach(sticker => {
-                                sticker.x *= scaleX;
-                                sticker.y *= scaleY;
-                            });
-                        }
-                        redrawAllCanvasContent();
-                        renderStickers();
-                    }
-                }
-            });
-            resizeObserver.observe(document.getElementById('paperContainer'));
-        };
+            // 更新當前頁索引
+            currentPageIndex = index;
 
-        // 當表單內容改變，即時在金紙上重新繪製手寫文字
-        function handleFormInput() {
-            redrawAllCanvasContent();
-        }
-
-        // 繪製微歪扭、充滿手感的手繪太陽
-        function drawHanddrawnSun(ctx, cx, cy, size = 28) {
-            ctx.save();
-            ctx.strokeStyle = '#1a1a1a';
-            ctx.lineWidth = 3.5;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-
-            // 畫一個手繪感的稍微不規則圓圈
-            ctx.beginPath();
-            const radius = size;
-            const points = 32;
-            for (let i = 0; i <= points; i++) {
-                const angle = (i / points) * Math.PI * 2;
-                const wobble = Math.sin(angle * 6) * 1.0 + Math.cos(angle * 3) * 0.6;
-                const r = radius + wobble;
-                const x = cx + Math.cos(angle) * r;
-                const y = cy + Math.sin(angle) * r;
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            }
-            ctx.stroke();
-
-            // 繪製微笑表情
-            ctx.beginPath();
-            ctx.arc(cx, cy, radius * 0.5, 0.1 * Math.PI, 0.9 * Math.PI);
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(cx - radius * 0.35, cy - radius * 0.15, 1.5, 0, Math.PI * 2);
-            ctx.arc(cx + radius * 0.35, cy - radius * 0.15, 1.5, 0, Math.PI * 2);
-            ctx.fillStyle = '#1a1a1a';
-            ctx.fill();
-
-            // 太陽放射光芒
-            const numRays = 18;
-            for (let i = 0; i < numRays; i++) {
-                const angle = (i / numRays) * Math.PI * 2;
-                const wobbleStart = Math.sin(angle * 7) * 0.8;
-                const wobbleEnd = Math.cos(angle * 4) * 1.2;
-                const rStart = radius + 6 + wobbleStart;
-                const rEnd = radius + 18 + wobbleEnd;
-                
-                const sx = cx + Math.cos(angle) * rStart;
-                const sy = cy + Math.sin(angle) * rStart;
-                const ex = cx + Math.cos(angle) * rEnd;
-                const ey = cy + Math.sin(angle) * rEnd;
-                
-                ctx.beginPath();
-                ctx.moveTo(sx, sy);
-                ctx.lineTo(ex, ey);
-                ctx.stroke();
-            }
-            ctx.restore();
-        }
-
-        // 繪製手繪雲朵
-        function drawHanddrawnCloud(ctx, cx, cy, scale = 1.0) {
-            ctx.save();
-            ctx.strokeStyle = '#2e2e2e';
-            ctx.lineWidth = 2.5;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.beginPath();
-            
-            ctx.moveTo(cx - 20 * scale, cy);
-            ctx.bezierCurveTo(cx - 30 * scale, cy - 10 * scale, cx - 15 * scale, cy - 25 * scale, cx, cy - 20 * scale);
-            ctx.bezierCurveTo(cx + 10 * scale, cy - 30 * scale, cx + 30 * scale, cy - 20 * scale, cx + 25 * scale, cy - 5 * scale);
-            ctx.bezierCurveTo(cx + 35 * scale, cy + 5 * scale, cx + 20 * scale, cy + 15 * scale, cx + 10 * scale, cy + 10 * scale);
-            ctx.bezierCurveTo(cx, cy + 15 * scale, cx - 15 * scale, cy + 10 * scale, cx - 20 * scale, cy);
-            ctx.stroke();
-            ctx.restore();
-        }
-
-        // 核心：一鍵重新繪製整張 A4 祈願紙
-        function initCanvases() {
-            const canvas = document.getElementById('turtleCanvas');
-            const rect = canvas.parentNode.getBoundingClientRect();
-            canvas.width = rect.width || 600;
-            canvas.height = rect.height || 450;
-            redrawAllCanvasContent();
-        }
-
-        function redrawAllCanvasContent() {
-            const canvas = document.getElementById('turtleCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 1. 繪製紅色雙邊框 (正統朱砂紅色調)
-            ctx.strokeStyle = 'rgba(180, 28, 28, 0.35)';
-            ctx.lineWidth = 2.5;
-            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
-            ctx.strokeStyle = 'rgba(180, 28, 28, 0.15)';
-            ctx.lineWidth = 1;
-            ctx.strokeRect(15, 15, canvas.width - 30, canvas.height - 30);
-
-            // 2. 在正中央上方，繪製醒目的微笑大太陽 (比照 image_57ca2d.png 結構)
-            const sunX = canvas.width / 2;
-            const sunY = canvas.height * 0.22;
-            drawHanddrawnSun(ctx, sunX, sunY, 30);
-
-            // 3. 繪製太陽兩側手繪雲朵
-            drawHanddrawnCloud(ctx, canvas.width * 0.18, canvas.height * 0.14, 0.9);
-            drawHanddrawnCloud(ctx, canvas.width * 0.32, canvas.height * 0.22, 1.2);
-            drawHanddrawnCloud(ctx, canvas.width * 0.82, canvas.height * 0.16, 0.95);
-
-            // 4. 即時手寫時空落款 (右上角，排版完美符合 image_57ca2d.png，全面使用 芫荽體 Iansui)
-            const name = document.getElementById('signerName').value.trim();
-            const timeVal = document.getElementById('ritualTime').value.trim();
-            const locVal = document.getElementById('ritualLocation').value.trim();
-
-            if (name || timeVal || locVal) {
-                ctx.save();
-                ctx.fillStyle = '#111827';
-                // 使用開源「芫荽體 (Iansui)」並以此為第一順位，Klee One 為完美備份
-                ctx.font = '600 17px "Iansui", "芫荽", "Klee One", "Zhi Mang Xing", "Kaiti", cursive';
-                
-                const startX = canvas.width * 0.62; // 稍微左移以防文字過長超出邊緣
-                let startY = canvas.height * 0.30;
-                
-                if (timeVal) {
-                    ctx.fillText(timeVal, startX, startY);
-                    startY += 24;
-                }
-                if (locVal) {
-                    ctx.fillText(locVal, startX, startY);
-                    startY += 24;
-                }
-                if (name) {
-                    ctx.fillText(`信眾：${name}`, startX, startY);
-                    startY += 24;
-                }
-                ctx.fillText("天氣晴！！☀️", startX, startY);
-                ctx.restore();
+            // 顯示新頁面
+            const newPage = document.querySelector(`.notebook-page-group[data-page="${currentPageIndex}"]`);
+            if (newPage) {
+                newPage.classList.remove('hidden');
+                newPage.classList.add('z-10');
+                newPage.classList.remove('z-0');
             }
 
-            // 5. 繪製所有使用者手繪線條
-            userStrokes.forEach(stroke => {
-                ctx.beginPath();
-                ctx.strokeStyle = stroke.color;
-                ctx.lineWidth = stroke.size;
-                ctx.lineCap = 'round';
-                ctx.lineJoin = 'round';
-                ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
-                for (let i = 1; i < stroke.points.length; i++) {
-                    ctx.lineTo(stroke.points[i].x, stroke.points[i].y);
-                }
-                ctx.stroke();
-            });
+            // 更新按鈕樣式 (標籤高亮)
+            updateNavTabs();
+            // 更新頁碼文字
+            updatePageNumber();
         }
 
-        // 新增純手繪風貼紙，支援旋轉與大小縮放
-        function addSticker(type) {
-            if (type !== 'grid' && type !== 'simple') return; // 只允許烏龜貼紙
-
-            const paper = document.getElementById('paperContainer');
-            const rect = paper.getBoundingClientRect();
-            
-            // 抓取中央太陽的位置
-            const sunX = rect.width / 2;
-            const sunY = rect.height * 0.22;
-
-            // 隨機放在紙張中下半部 (符合傳統畫法佈局)
-            const x = 50 + Math.random() * (rect.width - 100);
-            const y = (rect.height * 0.45) + Math.random() * (rect.height * 0.45);
-
-            // 使用三角函數 Math.atan2 算出小烏龜指向中央太陽的弧度 (預設頭朝上，因此需補上 PI/2 的偏角)
-            const dx = sunX - x;
-            const dy = sunY - y;
-            const targetAngle = Math.atan2(dy, dx) + Math.PI / 2;
-
-            const stickerId = Date.now() + Math.random().toString(36).substr(2, 5);
-            const sticker = {
-                id: stickerId,
-                type: type,
-                x: x,
-                y: y,
-                angle: targetAngle,
-                scale: 1.0
-            };
-
-            stickers.push(sticker);
-            renderStickers();
-            selectSticker(stickerId);
-            playPaperRustleSound();
-        }
-
-        function renderStickers() {
-            const layer = document.getElementById('stickerLayer');
-            layer.innerHTML = '';
-
-            stickers.forEach(sticker => {
-                const stickerDiv = document.createElement('div');
-                stickerDiv.id = `sticker-${sticker.id}`;
-                stickerDiv.className = `absolute pointer-events-auto cursor-grab flex items-center justify-center border border-transparent transition-shadow duration-150 p-2 rounded-lg origin-center select-none ${activeStickerId === sticker.id ? 'sticker-active' : ''}`;
-                
-                // 設定貼紙寬高比例
-                let baseWidth = 65;
-                let baseHeight = 65;
-
-                stickerDiv.style.width = `${baseWidth}px`;
-                stickerDiv.style.height = `${baseHeight}px`;
-                stickerDiv.style.left = `${sticker.x}px`;
-                stickerDiv.style.top = `${sticker.y}px`;
-                stickerDiv.style.transform = `translate(-50%, -50%) rotate(${sticker.angle}rad) scale(${sticker.scale})`;
-
-                // 產生貼紙 SVG 內容 (純黑黑白手繪線條，背景白，完全符合 A4 金紙感)
-                let svgContent = '';
-                if (sticker.type === 'grid') {
-                    // 傳統網格龜 (比照 image_57ca2d.png)
-                    svgContent = `
-                        <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- 四肢 -->
-                            <path d="M22 38 C 12 36, 12 48, 24 44" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M78 38 C 88 36, 88 48, 76 44" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M25 72 C 15 76, 18 86, 28 80" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M75 72 C 85 76, 82 86, 72 80" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <!-- 尾巴 -->
-                            <path d="M50 82 C 48 92, 52 92, 50 82" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <!-- 頭部 -->
-                            <path d="M50 24 C 42 12, 58 12, 50 24" fill="white" stroke="#111827" stroke-width="3" stroke-linejoin="round"/>
-                            <circle cx="47" cy="18" r="1.5" fill="#111827"/>
-                            <circle cx="53" cy="18" r="1.5" fill="#111827"/>
-                            <!-- 龜殼 -->
-                            <ellipse cx="50" cy="54" rx="23" ry="27" fill="white" stroke="#111827" stroke-width="3.5"/>
-                            <!-- 網格紋路 -->
-                            <path d="M50 27 L50 81" stroke="#111827" stroke-width="2"/>
-                            <path d="M30 40 L70 40" stroke="#111827" stroke-width="2"/>
-                            <path d="M27 54 L73 54" stroke="#111827" stroke-width="2"/>
-                            <path d="M30 68 L70 68" stroke="#111827" stroke-width="2"/>
-                            <path d="M38 40 L50 27 L62 40 L50 54 L38 40" stroke="#111827" stroke-width="1.8"/>
-                            <path d="M38 68 L50 54 L62 68 L50 81 L38 68" stroke="#111827" stroke-width="1.8"/>
-                        </svg>
-                    `;
-                } else if (sticker.type === 'simple') {
-                    // Q版大頭龜
-                    svgContent = `
-                        <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- 四肢 -->
-                            <path d="M25 36 Q 14 30, 24 44" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M75 36 Q 86 30, 76 44" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <circle cx="28" cy="76" r="3" fill="#111827"/>
-                            <circle cx="72" cy="76" r="3" fill="#111827"/>
-                            <!-- 尾巴 -->
-                            <path d="M50 80 L50 88" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
-                            <!-- 頭部 -->
-                            <circle cx="50" cy="22" r="10" fill="white" stroke="#111827" stroke-width="3"/>
-                            <circle cx="47" cy="20" r="1.2" fill="#111827"/>
-                            <circle cx="53" cy="20" r="1.2" fill="#111827"/>
-                            <path d="M47 24 Q 50 26, 53 24" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-                            <!-- 龜殼 -->
-                            <circle cx="50" cy="54" r="23" fill="white" stroke="#111827" stroke-width="3.5"/>
-                            <circle cx="50" cy="54" r="12" stroke="#111827" stroke-width="2" stroke-dasharray="3 3"/>
-                            <path d="M50 31 L50 77 M27 54 L73 54" stroke="#111827" stroke-width="2"/>
-                        </svg>
-                    `;
-                }
-
-                stickerDiv.innerHTML = `
-                    <div class="w-full h-full select-none" onpointerdown="startDragSticker(event, '${sticker.id}')">
-                        ${svgContent}
-                    </div>
-                    <!-- 控制按鈕列 -->
-                    <!-- 旋轉把手 (頂部) -->
-                    <div class="sticker-control absolute -top-5 left-1/2 -translate-x-1/2 w-5 h-5 bg-slate-800 rounded-full border-2 border-white cursor-alias flex items-center justify-center text-[10px] shadow-md hover:scale-110 transition-transform" onpointerdown="startRotateSticker(event, '${sticker.id}')" title="旋轉">
-                        🔄
-                    </div>
-                    <!-- 放大把手 (左側) -->
-                    <div class="sticker-control absolute top-1/2 -left-5 -translate-y-1/2 w-5 h-5 bg-amber-600 rounded-full border border-white cursor-pointer flex items-center justify-center text-[11px] text-white font-black shadow-md hover:scale-110 transition-transform" onclick="scaleSticker(event, '${sticker.id}', 1.15)" title="放大">
-                        ➕
-                    </div>
-                    <!-- 縮小把手 (右側) -->
-                    <div class="sticker-control absolute top-1/2 -right-5 -translate-y-1/2 w-5 h-5 bg-amber-600 rounded-full border border-white cursor-pointer flex items-center justify-center text-[11px] text-white font-black shadow-md hover:scale-110 transition-transform" onclick="scaleSticker(event, '${sticker.id}', 0.85)" title="縮小">
-                        ➖
-                    </div>
-                    <!-- 複製按鈕 (左下) -->
-                    <div class="sticker-control absolute -bottom-4 -left-3 w-6 h-6 bg-slate-800 rounded-full border border-white cursor-pointer flex items-center justify-center text-xs text-white font-black shadow-md hover:scale-110 transition-transform" onclick="cloneSticker(event, '${sticker.id}')" title="複製貼紙">
-                        ＋
-                    </div>
-                    <!-- 刪除按鈕 (右下) -->
-                    <div class="sticker-control absolute -bottom-4 -right-3 w-6 h-6 bg-red-600 rounded-full border border-white cursor-pointer flex items-center justify-center text-xs text-white font-black shadow-md hover:scale-110 transition-transform" onclick="deleteSticker(event, '${sticker.id}')" title="刪除貼紙">
-                        ✕
-                    </div>
-                `;
-
-                layer.appendChild(stickerDiv);
-            });
-        }
-
-        function selectSticker(id) {
-            activeStickerId = id;
-            renderStickers();
-        }
-
-        // 點選空白處取消選取
-        function deselectAllStickers() {
-            if (activeStickerId !== null) {
-                activeStickerId = null;
-                renderStickers();
-            }
-        }
-
-        function scaleSticker(e, id, factor) {
-            e.stopPropagation();
-            const sticker = stickers.find(s => s.id === id);
-            if (!sticker) return;
-            sticker.scale = Math.max(0.4, Math.min(3.0, sticker.scale * factor));
-            renderStickers();
-        }
-
-        function startDragSticker(e, id) {
-            e.stopPropagation();
-            e.preventDefault();
-            selectSticker(id);
-            isDraggingSticker = true;
-
-            const sticker = stickers.find(s => s.id === id);
-            stickerDragOffset.x = e.clientX - sticker.x;
-            stickerDragOffset.y = e.clientY - sticker.y;
-        }
-
-        function startRotateSticker(e, id) {
-            e.stopPropagation();
-            e.preventDefault();
-            selectSticker(id);
-            isRotatingSticker = true;
-
-            const sticker = stickers.find(s => s.id === id);
-            stickerInitialAngle = sticker.angle;
-            
-            const rect = document.getElementById(`sticker-${id}`).getBoundingClientRect();
-            const stickerCenterX = rect.left + rect.width / 2;
-            const stickerCenterY = rect.top + rect.height / 2;
-            
-            stickerStartMouseAngle = Math.atan2(e.clientY - stickerCenterY, e.clientX - stickerCenterX);
-        }
-
-        function handlePointerMove(e) {
-            if (activeStickerId === null) return;
-            const sticker = stickers.find(s => s.id === activeStickerId);
-            if (!sticker) return;
-
-            if (isDraggingSticker) {
-                const paper = document.getElementById('paperContainer');
-                const paperRect = paper.getBoundingClientRect();
-                
-                let newX = e.clientX - stickerDragOffset.x;
-                let newY = e.clientY - stickerDragOffset.y;
-
-                newX = Math.max(10, Math.min(paperRect.width - 10, newX));
-                newY = Math.max(10, Math.min(paperRect.height - 10, newY));
-
-                sticker.x = newX;
-                sticker.y = newY;
-
-                // 【三角函數實時朝陽系統】拖移烏龜時，利用 Math.atan2 計算並動態更新烏龜的角度，使其永遠精準指向中央大太陽！
-                const sunX = paperRect.width / 2;
-                const sunY = paperRect.height * 0.22;
-                const dx = sunX - newX;
-                const dy = sunY - newY;
-                sticker.angle = Math.atan2(dy, dx) + Math.PI / 2;
-
-                const element = document.getElementById(`sticker-${sticker.id}`);
-                if (element) {
-                    element.style.left = `${newX}px`;
-                    element.style.top = `${newY}px`;
-                    element.style.transform = `translate(-50%, -50%) rotate(${sticker.angle}rad) scale(${sticker.scale})`;
-                }
-            } else if (isRotatingSticker) {
-                const rect = document.getElementById(`sticker-${sticker.id}`).getBoundingClientRect();
-                const stickerCenterX = rect.left + rect.width / 2;
-                const stickerCenterY = rect.top + rect.height / 2;
-                
-                const currentMouseAngle = Math.atan2(e.clientY - stickerCenterY, e.clientX - stickerCenterX);
-                const angleDiff = currentMouseAngle - stickerStartMouseAngle;
-                
-                sticker.angle = stickerInitialAngle + angleDiff;
-
-                const element = document.getElementById(`sticker-${sticker.id}`);
-                if (element) {
-                    element.style.transform = `translate(-50%, -50%) rotate(${sticker.angle}rad) scale(${sticker.scale})`;
-                }
-            }
-        }
-
-        function handlePointerUp() {
-            isDraggingSticker = false;
-            isRotatingSticker = false;
-        }
-
-        function cloneSticker(e, id) {
-            e.stopPropagation();
-            const original = stickers.find(s => s.id === id);
-            if (!original) return;
-
-            const paper = document.getElementById('paperContainer');
-            const rect = paper.getBoundingClientRect();
-            const sunX = rect.width / 2;
-            const sunY = rect.height * 0.22;
-
-            const clonedX = Math.min(original.x + 25, rect.width - 20);
-            const clonedY = Math.min(original.y + 25, rect.height - 20);
-
-            // 複製出來的烏龜，根據其新位置動態指向中央太陽
-            const dx = sunX - clonedX;
-            const dy = sunY - clonedY;
-            const targetAngle = Math.atan2(dy, dx) + Math.PI / 2;
-
-            const stickerId = Date.now() + Math.random().toString(36).substr(2, 5);
-            const clone = {
-                id: stickerId,
-                type: original.type,
-                x: clonedX,
-                y: clonedY,
-                angle: targetAngle,
-                scale: original.scale
-            };
-
-            stickers.push(clone);
-            renderStickers();
-            selectSticker(stickerId);
-            playPaperRustleSound();
-        }
-
-        function deleteSticker(e, id) {
-            e.stopPropagation();
-            stickers = stickers.filter(s => s.id !== id);
-            activeStickerId = null;
-            renderStickers();
-        }
-
-        function clearCanvasAndStickers() {
-            userStrokes = [];
-            undoStack = [];
-            stickers = [];
-            activeStickerId = null;
-            initCanvases();
-            renderStickers();
-        }
-
-        function setBrushColor(color) {
-            brushColor = color;
-            document.getElementById('colorRed').classList.remove('ring-slate-800');
-            document.getElementById('colorBlack').classList.remove('ring-slate-800');
-            
-            if (color === '#9c1c1c') {
-                document.getElementById('colorRed').classList.add('ring-slate-800');
+        // 上一頁
+        function prevPage() {
+            if (currentPageIndex > 0) {
+                goToPage(currentPageIndex - 1);
             } else {
-                document.getElementById('colorBlack').classList.add('ring-slate-800');
+                goToPage(totalPages - 1); // 循環到最後一頁
             }
         }
 
-        function undoStroke() {
-            if (userStrokes.length === 0) return;
-            const popped = userStrokes.pop();
-            undoStack.push(popped);
-            redrawAllCanvasContent();
-        }
-
-        function getCoordinates(e) {
-            const canvas = document.getElementById('turtleCanvas');
-            const rect = canvas.getBoundingClientRect();
-            
-            if (e.touches && e.touches.length > 0) {
-                return {
-                    x: e.touches[0].clientX - rect.left,
-                    y: e.touches[0].clientY - rect.top
-                };
-            }
-            return {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top
-            };
-        }
-
-        function startStroke(e) {
-            deselectAllStickers(); 
-            isDrawing = true;
-            const coords = getCoordinates(e);
-            
-            currentStroke = {
-                color: brushColor,
-                size: brushSize,
-                points: [{ x: coords.x, y: coords.y }]
-            };
-            userStrokes.push(currentStroke);
-            
-            lastX = coords.x;
-            lastY = coords.y;
-        }
-
-        function drawStroke(e) {
-            if (!isDrawing) return;
-            const canvas = document.getElementById('turtleCanvas');
-            const ctx = canvas.getContext('2d');
-            const coords = getCoordinates(e);
-
-            ctx.beginPath();
-            ctx.strokeStyle = brushColor;
-            ctx.lineWidth = brushSize;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(coords.x, coords.y);
-            ctx.stroke();
-
-            currentStroke.points.push({ x: coords.x, y: coords.y });
-
-            lastX = coords.x;
-            lastY = coords.y;
-        }
-
-        function endStroke() {
-            isDrawing = false;
-            currentStroke = null;
-        }
-
-        function handleTouchStart(e) {
-            e.preventDefault();
-            startStroke(e);
-        }
-
-        function handleTouchMove(e) {
-            e.preventDefault();
-            drawStroke(e);
-        }
-
-        function initAudio() {
-            if (audioCtx) return;
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-
-        function playRainSound() {
-            if (!audioCtx) return;
-            
-            const bufferSize = 2 * audioCtx.sampleRate;
-            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const output = noiseBuffer.getChannelData(0);
-            
-            for (let i = 0; i < bufferSize; i++) {
-                output[i] = Math.random() * 2 - 1;
-            }
-
-            const whiteNoise = audioCtx.createBufferSource();
-            whiteNoise.buffer = noiseBuffer;
-            whiteNoise.loop = true;
-
-            const lpFilter = audioCtx.createBiquadFilter();
-            lpFilter.type = 'lowpass';
-            lpFilter.frequency.setValueAtTime(750, audioCtx.currentTime);
-
-            const rainGain = audioCtx.createGain();
-            rainGain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-
-            whiteNoise.connect(lpFilter);
-            lpFilter.connect(rainGain);
-            rainGain.connect(audioCtx.destination);
-            
-            whiteNoise.start();
-            rainNode = { source: whiteNoise, gain: rainGain };
-        }
-
-        function playFireSound() {
-            if (!audioCtx) return;
-
-            const bufferSize = 2 * audioCtx.sampleRate;
-            const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const output = noiseBuffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                output[i] = Math.random() * 2 - 1;
-            }
-
-            const brownNoise = audioCtx.createBufferSource();
-            brownNoise.buffer = noiseBuffer;
-            brownNoise.loop = true;
-
-            const fireFilter = audioCtx.createBiquadFilter();
-            fireFilter.type = 'lowpass';
-            fireFilter.frequency.setValueAtTime(160, audioCtx.currentTime);
-
-            const fireGain = audioCtx.createGain();
-            fireGain.gain.setValueAtTime(0, audioCtx.currentTime);
-
-            brownNoise.connect(fireFilter);
-            fireFilter.connect(fireGain);
-            fireGain.connect(audioCtx.destination);
-            brownNoise.start();
-
-            let crackleTimer = setInterval(() => {
-                if (!isAudioPlaying || fireGain.gain.value < 0.04) return;
-                
-                if (Math.random() > 0.65) {
-                    const osc = audioCtx.createOscillator();
-                    const popGain = audioCtx.createGain();
-                    
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(70 + Math.random() * 500, audioCtx.currentTime);
-                    
-                    popGain.gain.setValueAtTime(0.04 * Math.random(), audioCtx.currentTime);
-                    popGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
-                    
-                    osc.connect(popGain);
-                    popGain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.1);
-                }
-            }, 70);
-
-            fireNode = { source: brownNoise, gain: fireGain, timer: crackleTimer };
-        }
-
-        function toggleAudio() {
-            initAudio();
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-
-            const btn = document.getElementById('bgmToggleBtn');
-            const icon = document.getElementById('audioIcon');
-            const text = document.getElementById('audioText');
-
-            if (!isAudioPlaying) {
-                playRainSound();
-                playFireSound();
-                isAudioPlaying = true;
-                icon.innerText = '🔊';
-                text.innerText = '儀式環境音播音中';
-                btn.classList.add('border-amber-500', 'text-amber-200');
+        // 下一頁
+        function nextPage() {
+            if (currentPageIndex < totalPages - 1) {
+                goToPage(currentPageIndex + 1);
             } else {
-                if (rainNode) {
-                    rainNode.source.stop();
-                    rainNode = null;
-                }
-                if (fireNode) {
-                    fireNode.source.stop();
-                    clearInterval(fireNode.timer);
-                    fireNode = null;
-                }
-                isAudioPlaying = false;
-                icon.innerText = '🔇';
-                text.innerText = '播放儀式環境音';
-                btn.classList.remove('border-amber-500', 'text-amber-200');
+                goToPage(0); // 循環回封面
             }
         }
 
-        function fadeAudio(node, targetVolume, duration) {
-            if (!node || !audioCtx) return;
-            node.gain.gain.linearRampToValueAtTime(targetVolume, audioCtx.currentTime + duration);
-        }
-
-        function playPaperRustleSound() {
-            if (!audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gainNode = audioCtx.createGain();
-            
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(110, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(650, audioCtx.currentTime + 0.2);
-            
-            gainNode.gain.setValueAtTime(0.02, audioCtx.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
-            
-            osc.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
-        }
-
-        // 奉納金紙，合成 A4 祈福金紙
-        function proceedToRitual() {
-            const name = document.getElementById('signerName').value.trim();
-            const timeVal = document.getElementById('ritualTime').value.trim();
-            const locVal = document.getElementById('ritualLocation').value.trim();
-
-            deselectAllStickers();
-
-            // 準備融合成完整 A4 祈福金紙的「合成縮圖畫布」
-            const mainCanvas = document.getElementById('turtleCanvas');
-            const thumbCanvas = document.getElementById('thumbCanvas');
-            const thumbCtx = thumbCanvas.getContext('2d');
-            
-            thumbCanvas.width = 160;
-            thumbCanvas.height = 120;
-            
-            // 填滿竹黃色背景以重現正統金紙質感
-            thumbCtx.fillStyle = '#fdf6e2';
-            thumbCtx.fillRect(0, 0, thumbCanvas.width, thumbCanvas.height);
-
-            // 1. 複製使用者手繪、大太陽、雲朵與手寫時空落款
-            thumbCtx.drawImage(mainCanvas, 0, 0, thumbCanvas.width, thumbCanvas.height);
-
-            // 2. 將所有的貼紙圖樣縮放繪製到縮圖中
-            stickers.forEach(sticker => {
-                thumbCtx.save();
-                
-                const scaleX = thumbCanvas.width / mainCanvas.width;
-                const scaleY = thumbCanvas.height / mainCanvas.height;
-                const tx = sticker.x * scaleX;
-                const ty = sticker.y * scaleY;
-
-                thumbCtx.translate(tx, ty);
-                thumbCtx.rotate(sticker.angle);
-                
-                let size = 18;
-                drawOfflineStickerToCtx(thumbCtx, 0, 0, size * sticker.scale, sticker.type);
-                thumbCtx.restore();
-            });
-
-            // 更新金爐旁的狀態與金紙縮圖
-            document.getElementById('thumbSigner').innerText = name.substring(0, 4);
-            
-            document.getElementById('paperThumbnail').classList.remove('hidden', 'burning-ash');
-            document.getElementById('paperThumbnail').classList.add('flex', 'animate-bounce');
-            document.getElementById('paperThumbnail').style.filter = '';
-            document.getElementById('paperThumbnail').style.transform = '';
-            document.getElementById('paperThumbnail').style.opacity = '1';
-
-            document.getElementById('burnerStatus').innerHTML = `✨ 祈福 A4 金紙已恭敬置於金爐口！<br><span class="text-xs text-amber-200/80">請點火，看它化為焦黑與金箔灰燼直上九霄。</span>`;
-            document.getElementById('ritualActionBlock').style.display = 'block';
-
-            document.getElementById('altarCard').scrollIntoView({ behavior: 'smooth' });
-            playPaperRustleSound();
-        }
-
-        // 離線金紙縮圖貼紙繪製器
-        function drawOfflineStickerToCtx(ctx, x, y, size, type) {
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.strokeStyle = '#111827';
-            ctx.lineWidth = 1.3;
-
-            if (type === 'grid') {
-                ctx.beginPath();
-                ctx.arc(-size*0.4, -size*0.2, size*0.12, 0, Math.PI*2);
-                ctx.arc(size*0.4, -size*0.2, size*0.12, 0, Math.PI*2);
-                ctx.arc(-size*0.35, size*0.35, size*0.12, 0, Math.PI*2);
-                ctx.arc(size*0.35, size*0.35, size*0.12, 0, Math.PI*2);
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(0, size*0.4); ctx.lineTo(0, size*0.55);
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(0, -size*0.55, size*0.16, 0, Math.PI*2);
-                ctx.fillStyle = 'white';
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.ellipse(0, 0, size*0.42, size*0.5, 0, 0, Math.PI*2);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(0, -size*0.5); ctx.lineTo(0, size*0.5);
-                ctx.moveTo(-size*0.35, -size*0.2); ctx.lineTo(size*0.35, -size*0.2);
-                ctx.moveTo(-size*0.42, 0); ctx.lineTo(size*0.42, 0);
-                ctx.moveTo(-size*0.35, size*0.2); ctx.lineTo(size*0.35, size*0.2);
-                ctx.stroke();
-            } else if (type === 'simple') {
-                ctx.beginPath();
-                ctx.arc(-size*0.38, -size*0.2, size*0.1, 0, Math.PI*2);
-                ctx.arc(size*0.38, -size*0.2, size*0.1, 0, Math.PI*2);
-                ctx.arc(-size*0.35, size*0.32, size*0.1, 0, Math.PI*2);
-                ctx.arc(size*0.35, size*0.32, size*0.1, 0, Math.PI*2);
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(0, size*0.38); ctx.lineTo(0, size*0.52);
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(0, -size*0.52, size*0.18, 0, Math.PI*2);
-                ctx.fillStyle = 'white';
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.arc(0, 0, size*0.4, 0, Math.PI*2);
-                ctx.fill();
-                ctx.stroke();
-            }
-
-            ctx.restore();
-        }
-
-        let fireParticles = [];
-        let ashParticles = [];
-        let animationFrameId = null;
-
-        function startBurningRitual() {
-            document.getElementById('ritualActionBlock').style.display = 'none';
-            document.getElementById('burnerStatus').innerText = "🔥 陽氣旺盛！金爐高熱，金紙化為灰燼、直達天聽...";
-
-            if (isAudioPlaying) {
-                fadeAudio(fireNode, 0.45, 1.2);
-                fadeAudio(rainNode, 0.01, 5.0);
-            }
-
-            // A4 金紙縮圖開始執行極其逼真的「碳化蝕刻、捲縮化灰」動畫
-            const paper = document.getElementById('paperThumbnail');
-            paper.classList.remove('animate-bounce');
-            paper.classList.add('burning-ash'); 
-
-            const fireCanvas = document.getElementById('fireCanvas');
-            const fCtx = fireCanvas.getContext('2d');
-            fireCanvas.width = 192;
-            fireCanvas.height = 160;
-
-            fireParticles = [];
-            ashParticles = [];
-            let ritualTime = 0;
-            const maxRitualTime = 360; 
-
-            function animateRitual() {
-                ritualTime++;
-                fCtx.clearRect(0, 0, fireCanvas.width, fireCanvas.height);
-
-                // 生成火焰 (前中期極旺，後期隨金紙燒光慢慢減退)
-                if (ritualTime < 300) {
-                    for (let i = 0; i < 4; i++) {
-                        fireParticles.push({
-                            x: fireCanvas.width / 2 + (Math.random() * 55 - 27.5),
-                            y: fireCanvas.height - 20,
-                            vx: Math.random() * 2.2 - 1.1,
-                            vy: -(Math.random() * 4.5 + 2.5),
-                            size: Math.random() * 16 + 10,
-                            alpha: 1,
-                            color: `hsl(${Math.random() * 32 + 10}, 100%, 55%)`
-                        });
-                    }
-                }
-
-                // 生成被火焰燒蝕成碳焦的灰燼，以及點點金光 (重現正統金箔飛灰)
-                if (ritualTime < 320 && Math.random() > 0.25) {
-                    ashParticles.push({
-                        x: fireCanvas.width / 2 + (Math.random() * 75 - 37.5),
-                        y: fireCanvas.height / 2 + (Math.random() * 35 - 17.5),
-                        vx: Math.random() * 2.0 - 1.0,
-                        vy: -(Math.random() * 3.6 + 1.2),
-                        size: Math.random() * 8 + 3,
-                        alpha: 0.95,
-                        rotation: Math.random() * Math.PI,
-                        rotSpeed: Math.random() * 0.1 - 0.05,
-                        // 金色金箔灰與黑色碳灰
-                        color: Math.random() > 0.5 ? '#1f1f1f' : (Math.random() > 0.35 ? '#ea580c' : '#fbbf24')
-                    });
-                }
-
-                // 繪製火焰 (加色合成)
-                fCtx.globalCompositeOperation = 'screen';
-                fireParticles.forEach((p, idx) => {
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.alpha -= 0.015;
-                    p.size *= 0.94;
-
-                    fCtx.beginPath();
-                    fCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    fCtx.fillStyle = p.color;
-                    fCtx.globalAlpha = Math.max(0, p.alpha);
-                    fCtx.fill();
-
-                    if (p.alpha <= 0 || p.size < 1.5) {
-                        fireParticles.splice(idx, 1);
-                    }
-                });
-
-                // 繪製飄飛金銀焦炭灰燼
-                fCtx.globalCompositeOperation = 'source-over';
-                ashParticles.forEach((p, idx) => {
-                    p.x += p.vx + Math.sin(ritualTime / 10) * 0.8;
-                    p.y += p.vy;
-                    p.alpha -= 0.005;
-                    p.rotation += p.rotSpeed;
-
-                    fCtx.save();
-                    fCtx.translate(p.x, p.y);
-                    fCtx.rotate(p.rotation);
-                    
-                    fCtx.beginPath();
-                    fCtx.rect(-p.size/2, -p.size/2, p.size, p.size);
-                    fCtx.fillStyle = p.color;
-                    fCtx.globalAlpha = Math.max(0, p.alpha);
-                    fCtx.fill();
-                    fCtx.restore();
-
-                    if (p.alpha <= 0) {
-                        ashParticles.splice(idx, 1);
-                    }
-                });
-
-                if (ritualTime < maxRitualTime || fireParticles.length > 0) {
-                    animationFrameId = requestAnimationFrame(animateRitual);
+        // 更新導覽列高亮效果
+        function updateNavTabs() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach((tab, index) => {
+                if (index === currentPageIndex) {
+                    tab.classList.remove('opacity-70', 'scale-95');
+                    tab.classList.add('ring-2', 'ring-amber-700', 'scale-100', 'z-20');
                 } else {
-                    cancelAnimationFrame(animationFrameId);
-                    completeRitual();
+                    tab.classList.remove('ring-2', 'ring-amber-700', 'scale-100', 'z-20');
+                    tab.classList.add('opacity-70', 'scale-95');
+                }
+            });
+        }
+
+        // 更新頁數顯示
+        function updatePageNumber() {
+            const display = document.getElementById('pageNumberDisplay');
+            if (display) {
+                display.innerText = `${pageNames[currentPageIndex]} (${currentPageIndex + 1} / ${totalPages})`;
+            }
+        }
+
+        // 點擊行程區塊打勾 / 取消打勾
+        function toggleCheck(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            const textElements = element.querySelectorAll('p, span, div');
+            
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                if (checkbox.checked) {
+                    element.classList.add('checkbox-checked');
+                } else {
+                    element.classList.remove('checkbox-checked');
+                }
+            } else {
+                // 如果是 timeline 形式 (沒有實體 checkbox)
+                element.classList.toggle('checkbox-checked');
+                const checkIcon = element.querySelector('.checked-icon');
+                if (checkIcon) {
+                    checkIcon.classList.toggle('invisible');
                 }
             }
-
-            animateRitual();
         }
 
-        function completeRitual() {
-            // 背景過渡至雨過天晴、彩虹橫跨的耀眼天空 (正統撥雲見日)
-            const body = document.getElementById('appBody');
-            body.style.background = "linear-gradient(to bottom, #0d548f 0%, #1e81b0 45%, #fdba74 100%)";
+        // 觸控手勢支援 (左右滑動翻頁)
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const notebookContainer = document.getElementById('notebook');
 
-            document.getElementById('rainContainer').style.opacity = '0';
-            document.getElementById('clouds').style.opacity = '15%';
-            document.getElementById('sunGlow').style.opacity = '100%';
-            document.getElementById('rainbow').style.opacity = '100%';
-            
-            const badge = document.getElementById('weatherBadge');
-            badge.innerText = "晴空萬里 · 所求皆應";
-            badge.className = "text-xs bg-amber-500/20 text-amber-300 border border-amber-600 px-2 py-0.5 rounded-full animate-pulse";
+        notebookContainer.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
 
-            document.getElementById('burnerStatus').innerText = "☀️ 瑞氣祥光普照，烏雲歸去！";
-            document.getElementById('burnerSubStatus').innerText = "靈龜已上達天界，好天氣正朝您狂奔！";
+        notebookContainer.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
 
-            if (isAudioPlaying) {
-                fadeAudio(fireNode, 0.02, 3.0);
-                playSunnyChime();
-            }
-
-            // 儲存至天庭功德榜歷史紀錄
-            const name = document.getElementById('signerName').value;
-            const timeVal = document.getElementById('ritualTime').value;
-            const locVal = document.getElementById('ritualLocation').value;
-            const cat = document.getElementById('blessingCategory').value;
-            
-            const newWish = { name, wish: `${timeVal} 在 ${locVal} 祈求晴天`, cat, status: "天庭處理中" };
-            wishHistory.unshift(newWish);
-            localStorage.setItem('turtle_blessings', JSON.stringify(wishHistory));
-            loadHistory();
-
-            setTimeout(() => {
-                document.getElementById('finalName').innerText = name;
-                document.getElementById('finalTime').innerText = timeVal;
-                document.getElementById('finalLocation').innerText = locVal;
-                
-                const catNames = {
-                    sunny: "☀️ 驅除烏雲 · 晴空萬里",
-                    exam: "🎓 金榜題名 · 考試順利",
-                    health: "🍀 身體健康 · 出入平安",
-                    wealth: "💰 開張大吉 · 財源廣進",
-                    love: "💖 桃花朵朵 · 良緣美滿"
-                };
-                document.getElementById('finalCategory').innerText = catNames[cat] || "晴天祈願";
-
-                const fortunes = {
-                    sunny: "「烏雲歸去日曈曈，雨過天晴萬里紅。」您的祈福金紙與朝陽靈龜已完美火化升天，神明已為您除霧驅雨，必定迎來耀眼晴天！",
-                    exam: "「文曲星高照乾坤，下筆有神如暖陽。」您的時空法帖已被天界查閱，祝考場上一路晴空萬里，順利登科！",
-                    health: "「瑞氣盈門消百病，神清氣爽似朝陽。」瑞光照拂您與摯愛，身體生機蓬勃、出入平安大吉！",
-                    wealth: "「財源滾滾如大江，八方來財喜顏開。」神火點亮了您與家人的財路，好運連連，蒸蒸日上！",
-                    love: "「紅線相牽意綿綿，兩心相許大晴天。」祈晴娘娘已為您的好姻緣加蓋法印，請帶著最陽光的笑容迎向幸福！"
-                };
-                document.getElementById('successFortuneText').innerText = fortunes[cat] || fortunes.sunny;
-
-                const modal = document.getElementById('successModal');
-                modal.classList.remove('hidden');
-                setTimeout(() => modal.classList.add('opacity-100'), 50);
-            }, 1000);
-        }
-
-        function playSunnyChime() {
-            if (!audioCtx) return;
-            const now = audioCtx.currentTime;
-            
-            // 溫暖的和弦慶祝音效
-            const freqs = [261.63, 329.63, 392.00, 493.88, 523.25];
-            freqs.forEach((f, i) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(f, now + i * 0.14);
-                
-                gain.gain.setValueAtTime(0, now + i * 0.14);
-                gain.gain.linearRampToValueAtTime(0.06, now + i * 0.14 + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.14 + 0.55);
-                
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now + i * 0.14);
-                osc.stop(now + i * 0.14 + 0.65);
-            });
-        }
-
-        function initRainParticles() {
-            const container = document.getElementById('rainContainer');
-            const density = 60;
-            container.innerHTML = '';
-
-            for (let i = 0; i < density; i++) {
-                const drop = document.createElement('div');
-                drop.className = 'absolute bg-gradient-to-b from-sky-400/40 to-transparent';
-                drop.style.width = '1.2px';
-                const length = Math.random() * 28 + 14;
-                drop.style.height = `${length}px`;
-                const left = Math.random() * 100;
-                const duration = Math.random() * 1.3 + 0.7;
-                const delay = Math.random() * 2;
-                
-                drop.style.left = `${left}%`;
-                drop.style.top = `-${length}px`;
-                drop.style.transform = 'rotate(15deg)';
-                drop.style.animation = `fall ${duration}s linear ${delay}s infinite`;
-                
-                container.appendChild(drop);
-            }
-
-            if (!document.getElementById('rainStyle')) {
-                const style = document.createElement('style');
-                style.id = 'rainStyle';
-                style.innerHTML = `
-                    @keyframes fall {
-                        0% { top: -35px; }
-                        100% { top: 110%; }
-                    }
-                `;
-                document.head.appendChild(style);
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchStartX - touchEndX > swipeThreshold) {
+                // 向左滑 -> 下一頁
+                nextPage();
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                // 向右滑 -> 上一頁
+                prevPage();
             }
         }
 
-        function loadHistory() {
-            const container = document.getElementById('wishHistoryContainer');
-            const stored = localStorage.getItem('turtle_blessings');
-            if (stored) {
-                wishHistory = JSON.parse(stored);
-            } else {
-                wishHistory = [];
-            }
-
-            container.innerHTML = '';
-
-            // 當歷史紀錄為空時，顯示極具質感的空白提示卡片
-            if (wishHistory.length === 0) {
-                container.innerHTML = `
-                    <div class="h-full flex flex-col items-center justify-center text-center p-4 border border-dashed border-slate-800 rounded-2xl bg-slate-950/20">
-                        <span class="text-3xl mb-1 opacity-60">📜</span>
-                        <p class="text-[11px] text-amber-200/80 font-semibold font-iansui">目前天庭尚未登記任何祈願</p>
-                        <p class="text-[10px] text-slate-500 mt-1 font-iansui leading-relaxed">請在左側寫明時空並放滿朝陽靈龜，<br>點火奉納後，您的功德與願望將會登天記名！</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const badgeStyles = {
-                "天庭處理中": "bg-amber-950/80 text-amber-400 border border-amber-900",
-                "已靈驗": "bg-emerald-950/80 text-emerald-400 border border-emerald-900 animate-pulse"
-            };
-
-            wishHistory.forEach(w => {
-                const status = w.status || "天庭處理中";
-                const catEmojis = { sunny: "☀️", exam: "🎓", health: "🍀", wealth: "💰", love: "💖" };
-                const emoji = catEmojis[w.cat] || "🐢";
-
-                const item = document.createElement('div');
-                item.className = "bg-slate-950/40 border border-slate-800/80 rounded-xl p-3 flex justify-between items-center text-slate-300 shadow-sm hover:border-slate-700 transition-all duration-300";
-                item.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <span class="text-base">${emoji}</span>
-                        <div>
-                            <span class="font-bold text-slate-100 font-iansui">${escapeHtml(w.name)}</span> 
-                            <span class="text-slate-400 text-[10px] block mt-0.5 font-iansui">${escapeHtml(w.wish)}</span>
-                        </div>
-                    </div>
-                    <span class="text-[9px] ${badgeStyles[status]} px-2 py-0.5 rounded-full whitespace-nowrap">${status}</span>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        // --- 5. 輔助工具函數 ---
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-        }
-
-        function showToast(msg) {
-            const toast = document.createElement('div');
-            toast.className = "fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-slate-900 border border-amber-500/30 text-amber-200 px-6 py-3 rounded-2xl shadow-2xl z-50 text-sm font-semibold flex items-center gap-2 animate-bounce font-iansui";
-            toast.innerHTML = `<span>🐢</span> ${msg}`;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.transition = "opacity 0.5s ease";
-                toast.style.opacity = "0";
-                setTimeout(() => toast.remove(), 500);
-            }, 2300);
-        }
-
-        function openHelpModal() {
-            const m = document.getElementById('helpModal');
-            m.classList.remove('hidden');
-            setTimeout(() => m.classList.add('opacity-100'), 50);
-        }
-
-        function clearHistory() {
-            localStorage.removeItem('turtle_blessings');
-            wishHistory = [];
-            loadHistory();
-            showToast("🧹 已恭敬清空所有天庭登記歷史紀錄！");
-        }
-
-        function closeHelpModal() {
-            const m = document.getElementById('helpModal');
-            m.classList.remove('opacity-100');
-            setTimeout(() => m.classList.add('hidden'), 300);
-        }
-
-        function shareBlessing() {
-            const name = document.getElementById('signerName').value;
-            const timeVal = document.getElementById('ritualTime').value;
-            const locVal = document.getElementById('ritualLocation').value;
-            const text = `【線上燒烏龜祈福成功！】信眾：${name} 祈求時空：${timeVal} 於 ${locVal}。雨過天晴、陽光露臉！面朝大太陽爬行的靈龜已通天顯聖！ 🐢☀️`;
-            
-            const tempInput = document.createElement('input');
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            
-            showToast("✨ 祈福願望內容已複製！快分享給朋友一起祈求晴天！");
-        }
-
-        function restartRitual() {
-            const modal = document.getElementById('successModal');
-            modal.classList.remove('opacity-100');
-            setTimeout(() => modal.classList.add('hidden'), 500);
-
-            // 恢復下雨環境
-            const body = document.getElementById('appBody');
-            body.style.background = "#12131a";
-            document.getElementById('rainContainer').style.opacity = '0.6';
-            document.getElementById('clouds').style.opacity = '80%';
-            document.getElementById('sunGlow').style.opacity = '0';
-            document.getElementById('rainbow').style.opacity = '0';
-
-            const badge = document.getElementById('weatherBadge');
-            badge.innerText = "梅雨漫漫";
-            badge.className = "text-xs bg-sky-950/80 text-sky-400 border border-sky-800 px-2 py-0.5 rounded-full";
-
-            // 重設金紙、畫布與貼紙
-            clearCanvasAndStickers();
-            document.getElementById('paperThumbnail').className = "absolute w-28 aspect-[4/3] bg-[#fdf6e2] border border-amber-800/20 rounded-lg p-1.5 shadow-2xl z-20 cursor-grab transform rotate-[-6deg] hover:scale-105 hover:rotate-2 transition-all duration-300 hidden flex flex-col justify-between text-slate-950 text-[6px]";
-            document.getElementById('paperThumbnail').style = "";
-            document.getElementById('burnerStatus').innerText = "請填寫祈願信眾、時間地點，並在金紙上佈滿靈龜與大太陽喔！";
-            document.getElementById('burnerSubStatus').innerText = "萬事備妥後，恭敬點火，上達天聽。";
-            document.getElementById('ritualActionBlock').style.display = 'none';
-
-            if (isAudioPlaying) {
-                fadeAudio(rainNode, 0.08, 1);
-                fadeAudio(fireNode, 0.0, 1);
-            }
-
-            // 返回首頁 (Page 1)
-            showPage(1);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 網頁載入時初始化導覽標籤與頁碼
+        window.onload = function() {
+            updateNavTabs();
+            updatePageNumber();
         }
     </script>
 </body>
